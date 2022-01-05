@@ -32,10 +32,7 @@ function CoinDetails ({sparkline_in_7d}) {
   })
 
 
-//   let y = [];
-//  thisCoin.forEach(element => {
-//     y.push(element.sparkline_in_7d.price[0])
-//   })
+
   
   console.log(dataMap)
   console.log(typeof dataMap)
