@@ -55,7 +55,7 @@ function CoinDetails () {
 
   useEffect(() => {
     getMarketChart()
-  }, [coinId])
+  }, [])
 
   console.log(marketChart)
 
