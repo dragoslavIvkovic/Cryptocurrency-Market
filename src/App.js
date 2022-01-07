@@ -1,11 +1,11 @@
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Coins from './components/pages/Coins';
-import Services from './components/pages/Services';
-import Products from './components/pages/Products';
-import SignUp from './components/pages/SignUp';
-import CoinDetails from './components/pages/CoinDetails';
+import Coins from './pages/Coins';
+import Services from './pages/Services';
+import Products from './pages/Products';
+import SignUp from './pages/SignUp';
+import CoinDetails from './pages/CoinDetails';
 import './_styles/App.scss';
 
 function App () {

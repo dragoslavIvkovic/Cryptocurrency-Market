@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 
-import { StateContext } from '../../context/GlobalState'
-import '../../_styles/Coin.scss'
+import { StateContext } from '../context/GlobalState'
+import '../_styles/Coin.scss'
 import { Link } from 'react-router-dom'
 import {
   Paper,
@@ -23,6 +23,8 @@ import {
   Tooltip
 } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
+import InfoIcon from '@mui/icons-material/Info'
+
 
 function Coins ({
   id,
@@ -51,8 +53,7 @@ function Coins ({
   roi,
   last_updated,
   price_change_percentage_1h_in_currency,
-  price_change_percentage_24h_in_currency,
-  sparkline_in_7d
+  price_change_percentage_24h_in_currency
 }) {
   const [search, setSearch] = useState('')
   const { coins } = useContext(StateContext)
@@ -81,6 +82,7 @@ function Coins ({
             id='outlined-basic'
             variant='outlined'
             onChange={handleChange}
+            className='coin-search'
           />
         </FormControl>
       </Grid>
@@ -88,7 +90,7 @@ function Coins ({
       <Paper elevation={3} sx={{ overflow: 'hidden' }}>
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
-            <TableRow >
+            <TableRow>
               <TableCell pl={9}>
                 <Tooltip title='Add to watchlist'>
                   <StarBorderIcon />
@@ -98,10 +100,49 @@ function Coins ({
 
               <TableCell align='left'>Price</TableCell>
               <TableCell align='left'>24h %</TableCell>
-              <TableCell align='left'>Total Volume</TableCell>
+              <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
+                Total Volume
+                <Tooltip title='A measure of how much of a cryptocurrency was traded in the last 24 hours.'>
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
 
-              <TableCell align='left'>Market Cap</TableCell>
-              <TableCell align='left'>Circulating Supply</TableCell>
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              </TableCell>
+
+              <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
+                Market Cap 
+                <Tooltip
+                  title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
+Market Cap = Current Price x Circulating Supply."
+                >
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              </TableCell>
+              <TableCell align='left'>
+                Circulating Supply
+                <Tooltip title='The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.'>
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -110,7 +151,7 @@ function Coins ({
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                {' '}
+                 
                 <TableCell align='left'>
                   <Tooltip title='Add to watchlist'>
                     <StarBorderIcon />
@@ -140,10 +181,10 @@ function Coins ({
                 </TableCell>
                 {/* <TableCell align='left'>{row.symbol}</TableCell> */}
                 <TableCell align='left'>
-                  {' '}
+                   
                   <Typography
                     className='coin_price'
-                    style={{ fontWeight: 900 }}
+                    style={{ fontWeight: 700 }}
                   >
                     {row.current_price.toLocaleString('en-US', {
                       style: 'currency',
@@ -152,7 +193,7 @@ function Coins ({
                   </Typography>
                 </TableCell>
                 <TableCell align='left'>
-                  {' '}
+                   
                   {row.price_change_24h < 0 ? (
                     <Typography style={{ color: 'red' }}>
                       {row.price_change_24h?.toFixed(2)}%
@@ -165,8 +206,22 @@ function Coins ({
                 </TableCell>
                 <TableCell align='left'> {row.market_cap}</TableCell>
                 <TableCell align='left'> {row.total_volume}</TableCell>
-               
-                <TableCell align='left'   style={{ fontWeight: 700 }} className='circulating_supply'> {row.circulating_supply} {row.symbol}</TableCell>
+                <TableCell align='left' className='circulating_supply'>
+                  <Typography
+                    style={{ fontWeight: 700, marginRight: '10px' }}
+                    className='coin-circulating_supply'
+                  >
+                    {row.circulating_supply}
+                  </Typography>
+
+                  <Typography
+                    style={{ fontWeight: 700 }}
+                    className='coin-symbol'
+                  >
+                    {row.symbol}
+                  </Typography>
+                </TableCell>
+                {/* <TableCell>  <Line data={data} /></TableCell> */}
               </TableRow>
             ))}
           </TableBody>

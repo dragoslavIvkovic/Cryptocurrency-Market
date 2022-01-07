@@ -1,35 +1,54 @@
-.coin_name{
-  font-weight:bolder;
+.coin_name {
+  font-weight: bolder;
 }
 
-.coin_symbol{
-  color:gray;
- text-transform: uppercase;
+.coin_symbol {
+  color: gray;
+  text-transform: uppercase;
 }
 
-.btn-buy__coin{
- white-space: nowrap;
-    background: #0066b2;
-    color: #3861fb;
+
+
+.btn-buy__coin {
+  white-space: nowrap;
+  background: #0066b2;
+  color: #3861fb;
 }
 
-.link__details{
-   text-decoration: none; white-space: nowrap;
+.link__details {
+  text-decoration: none;
+  white-space: nowrap;
+}
+.link__details:hover {
+  text-decoration: none;
+  background: rgba(8, 171, 247, 0.1);
+  color: white;
+  border-radius: 15px;
+}
+
+.coin_price {
+  font-weight: 700;
+}
+.circulating_supply {
+  display: inline-block;
+  white-space: nowrap;
+
+  text-transform: uppercase;
+}
+
+.coin-circulating_supply,
+.coin-symbol {
+  
+  display: inline; 
+}
+
+
+
+.coin-symbol {
  
-   
-}
-.link__details:hover{
-   text-decoration: none; 
-   background: rgba(8, 171, 247, 0.1);
-   color: white;border-radius: 15px;
-   
+  color: blue;
 }
 
-.coin_price{
- font-weight: 700;
-}
-
-.circulating_supply{
-   text-transform: uppercase;
-   
+.coin-search {
+  background-color: white;
 }
