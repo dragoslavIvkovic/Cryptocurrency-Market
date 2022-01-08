@@ -23,7 +23,8 @@ import {
   Tooltip
 } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
-import InfoIcon from '@mui/icons-material/Info'
+import InfoIcon from '@mui/icons-material/Info';
+import CoinDetails from './CoinDetails'
 
 
 function Coins ({
@@ -72,6 +73,9 @@ function Coins ({
   // function createData(name, calories, fat, carbs, protein) {
   //   return { name, calories, fat, carbs, protein };
   // }
+
+  
+
 
   return (
     <Container sx={{ width: '80vw', marginTop: '5rem' }}>
@@ -221,7 +225,7 @@ Market Cap = Current Price x Circulating Supply."
                     {row.symbol}
                   </Typography>
                 </TableCell>
-                {/* <TableCell>  <Line data={data} /></TableCell> */}
+               
               </TableRow>
             ))}
           </TableBody>

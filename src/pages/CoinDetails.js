@@ -24,11 +24,20 @@ function CoinDetails () {
   // })
 
   let dates = [...Array(dayAgo)].map((_, i) => {
+   
     const d = new Date()
     d.setDate(d.getDate() - i)
-    return d.toLocaleString().split('.')[0]
-  })
+    return d.toDateString()
+})
+
   let labels = dates.reverse()
+
+  // let dates = [...Array(dayAgo)].map((_, i) => {
+  //   const d = new Date()
+  //   d.setDate(d.getDate() - i)
+  //   return d.toLocaleString().split('.')[0]
+  // })
+  // let labels = dates.reverse()
 
   // let dataMap = marketChart.map(x => {
   //   return x.prices
@@ -39,8 +48,7 @@ function CoinDetails () {
   // console.log(dataMap)
   // console.log(typeof dataMap)
 
-  console.log(coinId)
-  // console.log(label)
+
 
   const getMarketChart = async () => {
     await axios
@@ -58,11 +66,7 @@ function CoinDetails () {
     getMarketChart()
   }, [dayAgo])
 
-  console.log(marketChart)
-
-
-console.log(dayAgo)
-  
+ 
 
   const data = {
     labels,
@@ -84,7 +88,8 @@ console.log(dayAgo)
       <Button onClick={e => setDaysAgo(7)}>7D</Button>
       <Button onClick={e => setDaysAgo(14)}>14D</Button>
       <Button onClick={e => setDaysAgo(30)}>30D</Button>
-      <Button onClick={e => setDaysAgo(7)}>7D</Button>
+      <Button onClick={e => setDaysAgo(60)}>60D</Button>
+      <Button onClick={e => setDaysAgo(90)}>90D</Button>
 
       {/* {thisCoin.map(coin => {
           return (
