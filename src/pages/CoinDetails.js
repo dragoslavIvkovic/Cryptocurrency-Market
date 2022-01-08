@@ -8,7 +8,7 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import coinGecko from '../api/coinGecko'
 
 import { Box } from '@mui/system'
-import { Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import axios from 'axios'
 
 function CoinDetails () {
@@ -16,13 +16,14 @@ function CoinDetails () {
   const { coins } = useContext(StateContext)
   const [isLoading, setIsLoading] = useState(false)
   const [marketChart, setMarketChart] = useState({})
+  const [ dayAgo, setDaysAgo] = useState(7);
   const thisCoin = coins.filter(coin => coin.coinId === coinId)
 
   // let label = thisCoin.map(names => {
   //   return names.name
   // })
 
-  let dates = [...Array(7)].map((_, i) => {
+  let dates = [...Array(dayAgo)].map((_, i) => {
     const d = new Date()
     d.setDate(d.getDate() - i)
     return d.toLocaleString().split('.')[0]
@@ -45,7 +46,7 @@ function CoinDetails () {
     await axios
     coinGecko
       .get(
-        `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=7`
+        `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${dayAgo}&interval=daily`
       )
       .then(res => {
         setMarketChart(res.data.prices)
@@ -55,9 +56,13 @@ function CoinDetails () {
 
   useEffect(() => {
     getMarketChart()
-  }, [])
+  }, [dayAgo])
 
   console.log(marketChart)
+
+
+console.log(dayAgo)
+  
 
   const data = {
     labels,
@@ -76,6 +81,10 @@ function CoinDetails () {
   return (
     <div className='chart-container'>
       <Line data={data}  />
+      <Button onClick={e => setDaysAgo(7)}>7D</Button>
+      <Button onClick={e => setDaysAgo(14)}>14D</Button>
+      <Button onClick={e => setDaysAgo(30)}>30D</Button>
+      <Button onClick={e => setDaysAgo(7)}>7D</Button>
 
       {/* {thisCoin.map(coin => {
           return (
@@ -94,9 +103,7 @@ function CoinDetails () {
              </ul>
           )
         })} */}
-      <Link to='/'>
-        <button className='view-detail-btn'>beck</button>
-      </Link>
+     
     </div>
   )
 }
