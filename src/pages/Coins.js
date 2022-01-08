@@ -101,7 +101,6 @@ function Coins ({
                 </Tooltip>
               </TableCell>
               <TableCell align='left'>Name</TableCell>
-
               <TableCell align='left'>Price</TableCell>
               <TableCell align='left'>24h %</TableCell>
               <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
@@ -151,7 +150,7 @@ Market Cap = Current Price x Circulating Supply."
           </TableHead>
           <TableBody>
             {filteredCoins.map(row => (
-              <TableRow
+              <TableRow className="table-row"
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >

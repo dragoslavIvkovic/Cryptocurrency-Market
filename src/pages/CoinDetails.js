@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { StateContext } from '../context/GlobalState'
 import { Link, useParams } from 'react-router-dom'
-import "../_styles/CoinDetails.scss"
+import '../_styles/CoinDetails.scss'
 // import CoinProps from './CoinProps';
 import { Line, Chart } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
@@ -16,7 +16,8 @@ function CoinDetails () {
   const { coins } = useContext(StateContext)
   const [isLoading, setIsLoading] = useState(false)
   const [marketChart, setMarketChart] = useState({})
-  const [ dayAgo, setDaysAgo] = useState(7);
+  const [dayAgo, setDaysAgo] = useState(7);
+  // const [labelsOptions, setLabelsOptions] = useState(7)
   const thisCoin = coins.filter(coin => coin.coinId === coinId)
 
   // let label = thisCoin.map(names => {
@@ -24,13 +25,21 @@ function CoinDetails () {
   // })
 
   let dates = [...Array(dayAgo)].map((_, i) => {
-   
     const d = new Date()
     d.setDate(d.getDate() - i)
     return d.toDateString()
-})
+  })
 
-  let labels = dates.reverse()
+  let datesLabel = dates.reverse();
+
+
+//   let hours = [...Array(24)].map((_, i) => {
+//   const d = new Date();
+//   let hour = d.getHours() - i;
+//   return hour < 0 ? 24 - Math.abs(hour) : hour;
+// })
+
+// let hoursLabels = hours.reverse();
 
   // let dates = [...Array(dayAgo)].map((_, i) => {
   //   const d = new Date()
@@ -48,8 +57,6 @@ function CoinDetails () {
   // console.log(dataMap)
   // console.log(typeof dataMap)
 
-
-
   const getMarketChart = async () => {
     await axios
     coinGecko
@@ -66,13 +73,12 @@ function CoinDetails () {
     getMarketChart()
   }, [dayAgo])
 
- 
-
   const data = {
-    labels,
+    labels:datesLabel,
+
     datasets: [
       {
-        label:coinId,
+        label: coinId,
         data: marketChart,
         fill: true,
         backgroundColor: 'orange',
@@ -82,14 +88,21 @@ function CoinDetails () {
     ]
   }
 
+  console.log(dayAgo)
+  console.log(dayAgo)
+
   return (
-    <div className='chart-container'>
-      <Line data={data}  />
-      <Button onClick={e => setDaysAgo(7)}>7D</Button>
-      <Button onClick={e => setDaysAgo(14)}>14D</Button>
-      <Button onClick={e => setDaysAgo(30)}>30D</Button>
-      <Button onClick={e => setDaysAgo(60)}>60D</Button>
-      <Button onClick={e => setDaysAgo(90)}>90D</Button>
+    <Grid className='chart-container'>
+      <Grid>
+        {' '}
+        {/* <Button onClick={e => setDaysAgo(1)}>1D</Button> */}
+        <Button onClick={e => setDaysAgo(7)}>7D</Button>
+        <Button onClick={e => setDaysAgo(14)}>14D</Button>
+        <Button onClick={e => setDaysAgo(30)}>1M</Button>
+        <Button onClick={e => setDaysAgo(60)}>2M</Button>
+        <Button onClick={e => setDaysAgo(90)}>3M</Button>
+        <Line data={data} />
+      </Grid>
 
       {/* {thisCoin.map(coin => {
           return (
@@ -108,8 +121,7 @@ function CoinDetails () {
              </ul>
           )
         })} */}
-     
-    </div>
+    </Grid>
   )
 }
 
