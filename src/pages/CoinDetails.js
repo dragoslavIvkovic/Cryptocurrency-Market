@@ -16,7 +16,7 @@ function CoinDetails () {
   const { coins } = useContext(StateContext)
   const [isLoading, setIsLoading] = useState(false)
   const [marketChart, setMarketChart] = useState({})
-  const [dayAgo, setDaysAgo] = useState(7);
+  const [dayAgo, setDaysAgo] = useState('24h');
   // const [labelsOptions, setLabelsOptions] = useState(7)
   const thisCoin = coins.filter(coin => coin.coinId === coinId)
 
@@ -33,13 +33,13 @@ function CoinDetails () {
   let datesLabel = dates.reverse();
 
 
-//   let hours = [...Array(24)].map((_, i) => {
-//   const d = new Date();
-//   let hour = d.getHours() - i;
-//   return hour < 0 ? 24 - Math.abs(hour) : hour;
-// })
+  let hours = [...Array(24)].map((_, i) => {
+  const d = new Date();
+  let hour = d.getHours() - i;
+  return hour < 0 ? 24 - Math.abs(hour) : hour;
+})
 
-// let hoursLabels = hours.reverse();
+let hoursLabels = hours.reverse();
 
   // let dates = [...Array(dayAgo)].map((_, i) => {
   //   const d = new Date()
@@ -74,7 +74,7 @@ function CoinDetails () {
   }, [dayAgo])
 
   const data = {
-    labels:datesLabel,
+    labels: dayAgo === "24h" ? hoursLabels : datesLabel ,
 
     datasets: [
       {
@@ -95,12 +95,13 @@ function CoinDetails () {
     <Grid className='chart-container'>
       <Grid>
         {' '}
-        {/* <Button onClick={e => setDaysAgo(1)}>1D</Button> */}
+        <Button onClick={e => setDaysAgo("24h")}>1D</Button>
         <Button onClick={e => setDaysAgo(7)}>7D</Button>
         <Button onClick={e => setDaysAgo(14)}>14D</Button>
         <Button onClick={e => setDaysAgo(30)}>1M</Button>
         <Button onClick={e => setDaysAgo(60)}>2M</Button>
         <Button onClick={e => setDaysAgo(90)}>3M</Button>
+        
         <Line data={data} />
       </Grid>
 

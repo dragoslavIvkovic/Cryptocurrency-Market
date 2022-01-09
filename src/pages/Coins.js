@@ -23,6 +23,7 @@ import {
   Tooltip
 } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import CoinDetails from './CoinDetails'
 
