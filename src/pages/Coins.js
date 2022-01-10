@@ -20,12 +20,17 @@ import {
   Stack,
   FormControl,
   Button,
-  Tooltip
+  Tooltip,
+  InputAdornment,
+  InputBase,
+  IconButton
 } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import InfoIcon from '@mui/icons-material/Info';
-import CoinDetails from './CoinDetails'
+import CoinDetails from './CoinDetails';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 function Coins ({
@@ -79,16 +84,28 @@ function Coins ({
 
 
   return (
-    <Container sx={{ width: '80vw', marginTop: '5rem' }}>
+    <Container sx={{ width: '80vw', marginTop: '5rem' }} className="">
       <Grid align='center' mb={2}>
         <FormControl>
           <Typography className='coin-text'>Search a currency</Typography>
-          <TextField
-            id='outlined-basic'
-            variant='outlined'
-            onChange={handleChange}
-            className='coin-search'
-          />
+           
+         <Paper elevation={3}
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+    >
+    
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Search"
+        inputProps={{ 'aria-label': 'search' }}
+          onChange={handleChange}
+            className='coin-search' 
+      />
+      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+        <SearchIcon />
+      </IconButton>
+     
+    </Paper>
         </FormControl>
       </Grid>
 
@@ -117,7 +134,6 @@ function Coins ({
                   />
                 </Tooltip>
               </TableCell>
-
               <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
                 Market Cap 
                 <Tooltip
@@ -128,7 +144,6 @@ Market Cap = Current Price x Circulating Supply."
                     color='disabled'
                     sx={{
                       fontSize: 'large',
-
                       verticalAlign: 'middle'
                     }}
                   />
@@ -141,7 +156,6 @@ Market Cap = Current Price x Circulating Supply."
                     color='disabled'
                     sx={{
                       fontSize: 'large',
-
                       verticalAlign: 'middle'
                     }}
                   />
@@ -199,12 +213,12 @@ Market Cap = Current Price x Circulating Supply."
                 <TableCell align='left'>
                    
                   {row.price_change_24h < 0 ? (
-                    <Typography style={{ color: 'red' }}>
-                      {row.price_change_24h?.toFixed(2)}%
+                    <Typography  style={{ color: 'red', backgroundColor:"#FCE8E6",  borderRadius:"8px", padding:"3px", whiteSpace: "nowrap"}}>
+                     <ArrowDownwardIcon  sx={{fill:"red"}} /> {row.price_change_24h?.toFixed(2)}%
                     </Typography>
                   ) : (
-                    <Typography style={{ color: 'green' }}>
-                      {row.price_change_24h?.toFixed(2)}%
+                    <Typography  style={{ color: 'green', backgroundColor:"#E6F4EA", borderRadius:"8px",padding:"3px",whiteSpace: "nowrap" }}>
+                    <ArrowUpwardIcon style={{ fill: "green"}}/>  {row.price_change_24h?.toFixed(2)}%
                     </Typography>
                   )}
                 </TableCell>

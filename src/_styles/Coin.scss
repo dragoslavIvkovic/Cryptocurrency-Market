@@ -1,3 +1,7 @@
+
+
+
+
 .coin_name {
   font-weight: bolder;
 }
@@ -49,6 +53,12 @@
   color: blue;
 }
 
-.coin-search {
+.coin-search .MuiInputBase-root {
   background-color: white;
+//  border-radius: 15px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+ 
 }
+
+ .table-row:hover {
+       background-color:#E5E4E2;
+ }
