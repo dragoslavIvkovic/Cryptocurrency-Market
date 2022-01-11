@@ -6,6 +6,7 @@ import '../_styles/CoinDetails.scss'
 import { Line, Chart } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
 import coinGecko from '../api/coinGecko'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 import { Box } from '@mui/system'
 import {
@@ -16,29 +17,28 @@ import {
   Drawer,
   Grid,
   Paper,
-  Stack,CardMedia,
-  Typography,CardHeader
+  Stack,
+  CardMedia,
+  Typography,
+  CardHeader,
+  BorderLinearProgress
 } from '@mui/material'
 import axios from 'axios'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded'
+import SentimentNeutralRoundedIcon from '@mui/icons-material/SentimentNeutralRounded'
+import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded'
 
 function CoinDetails () {
   const { coinId } = useParams()
   const { coins } = useContext(StateContext)
   const [isLoading, setIsLoading] = useState(false)
   const [marketChart, setMarketChart] = useState({})
-  const [dayAgo, setDaysAgo] = useState('24h');
-  const [cryptData, setCryptData] = useState();
-  
+  const [dayAgo, setDaysAgo] = useState('24h')
+  const [cryptData, setCryptData] = useState({})
 
-  // const [labelsOptions, setLabelsOptions] = useState(7)
   const thisCoin = coins.filter(coin => coin.coinId === coinId)
-
-  // let label = thisCoin.map(names => {
-  //   return names.name
-  // })
-
-  
- 
 
   let dates = [...Array(dayAgo)].map((_, i) => {
     const d = new Date()
@@ -56,27 +56,11 @@ function CoinDetails () {
 
   let hoursLabels = hours.reverse()
 
-  // let dates = [...Array(dayAgo)].map((_, i) => {
-  //   const d = new Date()
-  //   d.setDate(d.getDate() - i)
-  //   return d.toLocaleString().split('.')[0]
-  // })
-  // let labels = dates.reverse()
-
-  // let dataMap = marketChart.map(x => {
-  //   return x.prices
-  // })
-
-  // const arr = Object.values(dataMap);
-
-  // console.log(dataMap)
-  // console.log(typeof dataMap)
-
   const getMarketChart = async () => {
     await axios
     coinGecko
       .get(
-        `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${dayAgo}&interval=daily`
+        `/coins/${coinId}/market_chart?vs_currency=usd&days=${dayAgo}&interval=daily`
       )
       .then(res => {
         setMarketChart(res.data.prices)
@@ -88,16 +72,15 @@ function CoinDetails () {
     getMarketChart()
   }, [dayAgo])
 
-
   const getCryptoData = async () => {
     await axios
     coinGecko
       .get(
-        `https://api.coingecko.com/api/v3/coins/${coinId}?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true`
+        `/coins/${coinId}?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true`
       )
       .then(res => {
         setCryptData(res.data)
-        console.log("xx" ,res.data)
+        console.log('xx', res.data)
       })
       .catch(error => console.log(error))
   }
@@ -106,14 +89,17 @@ function CoinDetails () {
     getCryptoData()
   }, [])
 
+  let colorTrustScore = cryptData.tickers?.[0].trust_score
 
+  console.log(colorTrustScore)
 
   const data = {
     labels: dayAgo === '24h' ? hoursLabels : datesLabel,
 
     datasets: [
       {
-        label: coinId,
+        label: `${coinId} price change in $`,
+
         data: marketChart,
         fill: true,
         backgroundColor: 'transparent',
@@ -123,8 +109,6 @@ function CoinDetails () {
       }
     ]
   }
-// console.log(cryptData)
-
 
   return (
     <Box>
@@ -146,13 +130,150 @@ function CoinDetails () {
           }}
           className='data-container'
         >
-          <Grid className='box-data' elevation={3}>
-              {/* <Typography>{cryptData.tickers[1]}</Typography> */}
-            
-            
+          <Grid className='box-data' elevation={3} padding={1} sx={{}}>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ color: 'gray', justifyContent: 'space-between' }}
+            >
+              <Box
+                display='flex'
+                flexDirection='row'
+                sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                <Typography>{cryptData.name}</Typography>
+                <Typography sx={{ mx: '5px' }}>Price</Typography>
+                <Typography
+                  sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}
+                >
+                  ({cryptData.symbol})
+                </Typography>
+              </Box>
+
+              <Box
+                display='flex'
+                flexDirection='row'
+                sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                {colorTrustScore === 'green' ? (
+                  <SentimentSatisfiedRoundedIcon style={{ fill: 'green' }} />
+                ) : colorTrustScore === 'yellow' ? (
+                  <SentimentNeutralRoundedIcon style={{ fill: 'yellow' }} />
+                ) : (
+                  <SentimentDissatisfiedRoundedIcon style={{ fill: 'red' }} />
+                )}{' '}
+                <Typography>Trust score</Typography>
+              </Box>
+            </Box>
+            <Box
+              display='flex'
+              flexDirection='row'
+              sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <Typography
+                sx={{ fontSize: '1.5vw', fontWeight: '700', mr: '0.5vw' }}
+              >
+                {cryptData?.market_data?.current_price?.usd.toLocaleString(
+                  'en-US',
+                  {
+                    style: 'currency',
+                    currency: 'USD'
+                  }
+                )}
+              </Typography>
+              <Typography>
+                {cryptData.market_data?.price_change_24h < 0 ? (
+                  <Typography
+                    style={{
+                      color: 'white',
+                      backgroundColor: 'red',
+                      borderRadius: '8px',
+                      padding: '3px',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    <ArrowDropDownIcon sx={{ fill: 'white' }} />
+                    {cryptData.market_data?.price_change_24h?.toFixed(2)}%
+                  </Typography>
+                ) : (
+                  <Typography
+                    style={{
+                      color: 'white',
+                      backgroundColor: 'green',
+                      borderRadius: '8px',
+                      padding: '3px',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    <ArrowDropUpIcon style={{ fill: 'white' }} />
+                    {cryptData.market_data?.price_change_24h?.toFixed(2)}%
+                  </Typography>
+                )}
+              </Typography>
+            </Box>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between' }}
+            >
+              <Typography sx={{ color: 'green', fontWeight: '700' }}>
+                High:{' '}
+                {cryptData.market_data?.low_24h?.usd.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD'
+                })}
+              </Typography>
+              <Typography sx={{ color: 'red', fontWeight: '700' }}>
+                Low:{' '}
+                {cryptData.market_data?.high_24h?.usd.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD'
+                })}
+              </Typography>
+            </Box>
+          
           </Grid>
           <Grid elevation={3} className='box-data'>
-            <Typography>1</Typography>
+             <Typography align="center">Converted value</Typography>
+            <Box
+              display='flex'
+              flexDirection='column'
+              align='center'
+              sx={{ justifyContent: 'space-between' }}
+            >
+             
+<Grid  display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between' }}>  <Typography sx={{ fontWeight: '700' }}>
+                {' '}
+                {cryptData?.tickers?.[0]?.converted_last?.btc} 
+              </Typography>
+              <Typography>BTC</Typography></Grid>
+
+              <Grid   display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between' }}><Typography sx={{ fontWeight: '700' }}>
+                {' '}
+                {cryptData?.tickers?.[0]?.converted_last?.eth} 
+              </Typography>
+              <Typography>ETH</Typography></Grid>
+
+              <Grid   display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between' }}> <Typography sx={{ fontWeight: '700' }}>
+                {' '}
+                {cryptData?.tickers?.[0]?.converted_last?.usd} 
+              </Typography>
+              <Typography>USD</Typography></Grid>
+            
+              
+             
+            </Box>
           </Grid>
           <Grid elevation={3} className='box-data'>
             <Typography>1</Typography>
@@ -164,9 +285,9 @@ function CoinDetails () {
             display: 'flex',
             alignItems: 'center'
           }}
+          align='center'
         >
           <Paper elevation={3} className='chart-box'>
-            {' '}
             <Button className='btn-days' onClick={e => setDaysAgo('24h')}>
               1D
             </Button>
@@ -184,35 +305,90 @@ function CoinDetails () {
         </Box>
       </Box>
 
-
-      <Box  sx={{
+      <Box
+        sx={{
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
-          justifyContent: 'center',
-         
-        }}>
-         <Card sx={{ width:"1/4", mx:"2vw",mt:"2vh",height:"90%" }}>
-      <CardHeader
-       
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
-        </Typography>
-      </CardContent>
-    
-    </Card>
+          justifyContent: 'center'
+        }}
+      >
+        <Box
+          display='flex'
+          flexDirection='row'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <img
+            sx={{ width: '1vw', margin: 'auto' }}
+            src={cryptData?.image?.small}
+            alt={coinId}
+          />
+          <Typography
+            sx={{ fontWeight: '900', fontSize: '3vw', mx: '0.5vw' }}
+            align='center'
+          >
+            {cryptData.name}
+          </Typography>
+          <Typography
+            align='center'
+            sx={{
+              textTransform: 'uppercase',
+              fontWeight: '500',
+              fontSize: '1.2vw',
+              mr: '0.5vw',
+              backgroundColor: '#d3d3d3',
+              borderRadius: '8px',
+              padding: '2px',
+              bottom: ' 0'
+            }}
+          >
+            {cryptData.symbol}
+          </Typography>
+
+          <StarBorderIcon
+            sx={{
+              border: '1px solid #d3d3d3',
+              borderRadius: '8px',
+              padding: '2px',
+              fontSize: '2vw'
+            }}
+          />
+        </Box>
+        <Box display='flex' flexDirection='row' alignItems='center'>
+          <Typography
+            align='center'
+            sx={{
+              fontSize: '1.5vw',
+              fontWeight: '700',
+              backgroundColor: '#d3d3d3',
+              borderRadius: '8px',
+              padding: '2px',
+              mr: '1vw'
+            }}
+          >
+            Rank:{cryptData.market_cap_rank}
+          </Typography>
+        </Box>
+
+        <CardContent>
+          <Typography variant='body2' color='text.secondary'>
+            `
+            {cryptData?.description?.en
+              .substring(0, 400)
+              .replace(/<a\b[^>]*>/i, '')
+              .replace(/<\/a>/i, '')}
+            `
+          </Typography>
+          <a
+            href={cryptData?.links?.homepage[0]}
+            target='_blank'
+            rel='noreferrer noopener'
+          >
+            Read more on official {coinId} website - link
+          </a>
+        </CardContent>
+        <Button align='center'>Add to Cart</Button>
       </Box>
     </Box>
   )

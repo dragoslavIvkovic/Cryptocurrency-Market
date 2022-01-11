@@ -8,4 +8,5 @@ Tasks:
 7. ✔️ in detail view add dates-last 7 days
 8. Pagination
 9. Crypto news https://cryptopanic.com/developers/api/# https://developers.coinranking.com/api/pricing
+10. filter coin high to low
  

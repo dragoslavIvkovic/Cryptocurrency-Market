@@ -26,12 +26,15 @@ import {
   IconButton
 } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import InfoIcon from '@mui/icons-material/Info';
-import CoinDetails from './CoinDetails';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import SearchIcon from '@mui/icons-material/Search';
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import InfoIcon from '@mui/icons-material/Info'
+import CoinDetails from './CoinDetails'
 
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
+import SearchIcon from '@mui/icons-material/Search'
 
 function Coins ({
   id,
@@ -80,32 +83,33 @@ function Coins ({
   //   return { name, calories, fat, carbs, protein };
   // }
 
-  
-
-
   return (
-    <Container sx={{ width: '80vw', marginTop: '5rem' }} className="">
+    <Container sx={{ width: '80vw', marginTop: '5rem' }} className=''>
       <Grid align='center' mb={2}>
         <FormControl>
           <Typography className='coin-text'>Search a currency</Typography>
-           
-         <Paper elevation={3}
-      component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
-    >
-    
-      <InputBase
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="Search"
-        inputProps={{ 'aria-label': 'search' }}
-          onChange={handleChange}
-            className='coin-search' 
-      />
-      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon />
-      </IconButton>
-     
-    </Paper>
+
+          <Paper
+            elevation={3}
+            component='form'
+            sx={{
+              p: '2px 4px',
+              display: 'flex',
+              alignItems: 'center',
+              width: 400
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder='Search'
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={handleChange}
+              className='coin-search'
+            />
+            <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+              <SearchIcon />
+            </IconButton>
+          </Paper>
         </FormControl>
       </Grid>
 
@@ -135,7 +139,7 @@ function Coins ({
                 </Tooltip>
               </TableCell>
               <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
-                Market Cap 
+                Market Cap
                 <Tooltip
                   title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
 Market Cap = Current Price x Circulating Supply."
@@ -165,11 +169,11 @@ Market Cap = Current Price x Circulating Supply."
           </TableHead>
           <TableBody>
             {filteredCoins.map(row => (
-              <TableRow className="table-row"
+              <TableRow
+                className='table-row'
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                 
                 <TableCell align='left'>
                   <Tooltip title='Add to watchlist'>
                     <StarBorderIcon />
@@ -199,7 +203,6 @@ Market Cap = Current Price x Circulating Supply."
                 </TableCell>
                 {/* <TableCell align='left'>{row.symbol}</TableCell> */}
                 <TableCell align='left'>
-                   
                   <Typography
                     className='coin_price'
                     style={{ fontWeight: 700 }}
@@ -211,14 +214,32 @@ Market Cap = Current Price x Circulating Supply."
                   </Typography>
                 </TableCell>
                 <TableCell align='left'>
-                   
                   {row.price_change_24h < 0 ? (
-                    <Typography  style={{ color: 'red', backgroundColor:"#FCE8E6",  borderRadius:"8px", padding:"3px", whiteSpace: "nowrap"}}>
-                     <ArrowDownwardIcon  sx={{fill:"red"}} /> {row.price_change_24h?.toFixed(2)}%
+                    <Typography
+                      style={{
+                        color: 'red',
+                        backgroundColor: '#FCE8E6',
+                        borderRadius: '8px',
+                        padding: '3px',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      <ArrowDropDownIcon sx={{ fill: 'red' }} />
+                      {row.price_change_24h?.toFixed(2)}%
                     </Typography>
                   ) : (
-                    <Typography  style={{ color: 'green', backgroundColor:"#E6F4EA", borderRadius:"8px",padding:"3px",whiteSpace: "nowrap" }}>
-                    <ArrowUpwardIcon style={{ fill: "green"}}/>  {row.price_change_24h?.toFixed(2)}%
+                    <Typography
+                      style={{
+                        color: 'green',
+                        backgroundColor: '#E6F4EA',
+                        borderRadius: '8px',
+                        padding: '3px',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+               
+                      <ArrowDropUpIcon style={{ fill: 'green' }} />{' '}
+                      {row.price_change_24h?.toFixed(2)}%
                     </Typography>
                   )}
                 </TableCell>
@@ -239,7 +260,6 @@ Market Cap = Current Price x Circulating Supply."
                     {row.symbol}
                   </Typography>
                 </TableCell>
-               
               </TableRow>
             ))}
           </TableBody>

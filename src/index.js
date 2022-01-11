@@ -6,9 +6,10 @@ import { StateProvider } from "./context/GlobalState";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
+   <React.StrictMode>
   <StateProvider>
   <Router>  <App /></Router>
   
-  </StateProvider>,
+  </StateProvider></React.StrictMode>,
   rootElement
 );

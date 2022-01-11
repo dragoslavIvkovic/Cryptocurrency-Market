@@ -3,8 +3,8 @@ import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Coins from './pages/Coins';
 import Services from './pages/Services';
-import Products from './pages/Products';
-import SignUp from './pages/SignUp';
+import Watchlist from './pages/Watchlist';
+import LoginSignup from './pages/LoginSignup';
 import CoinDetails from './pages/CoinDetails';
 import './_styles/App.scss';
 
@@ -19,8 +19,8 @@ function App () {
             <CoinDetails />
           </Route>
           <Route path='/services' component={Services} />
-          <Route path='/products' component={Products} />
-          <Route path='/sign-up' component={SignUp} />
+          <Route path='/watchlist' component={Watchlist} />
+          <Route path='/login-signup' component={LoginSignup} />
         </Switch>
       </Router>
     </>
