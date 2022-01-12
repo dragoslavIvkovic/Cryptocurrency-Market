@@ -21,14 +21,16 @@ import {
   CardMedia,
   Typography,
   CardHeader,
-  BorderLinearProgress
+  BorderLinearProgress,
+  Tooltip
 } from '@mui/material'
 import axios from 'axios'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded'
 import SentimentNeutralRoundedIcon from '@mui/icons-material/SentimentNeutralRounded'
-import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded'
+import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded';
+import InfoIcon from '@mui/icons-material/Info'
 
 function CoinDetails () {
   const { coinId } = useParams()
@@ -102,9 +104,9 @@ function CoinDetails () {
 
         data: marketChart,
         fill: true,
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(255,0,0,0.5)',
         borderColor: 'red',
-        tension: 1,
+     
         pointHoverRadius: 5
       }
     ]
@@ -133,7 +135,7 @@ function CoinDetails () {
           <Grid className='box-data' elevation={3} padding={1} sx={{}}>
             <Box
               display='flex'
-              flexDirection='row'
+              flexDirection='column'
               alignItems='center'
               sx={{ color: 'gray', justifyContent: 'space-between' }}
             >
@@ -169,7 +171,7 @@ function CoinDetails () {
             <Box
               display='flex'
               flexDirection='row'
-              sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+              sx={{ justifyContent: 'space-between', alignItems: 'center',mb:"1vh" }}
             >
               <Typography
                 sx={{ fontSize: '1.5vw', fontWeight: '700', mr: '0.5vw' }}
@@ -180,7 +182,8 @@ function CoinDetails () {
                     style: 'currency',
                     currency: 'USD'
                   }
-                )}
+                )
+                }
               </Typography>
               <Typography>
                 {cryptData.market_data?.price_change_24h < 0 ? (
@@ -216,66 +219,142 @@ function CoinDetails () {
               display='flex'
               flexDirection='row'
               alignItems='center'
-              sx={{ justifyContent: 'space-between' }}
+              sx={{ justifyContent: 'space-between',mb:"0.5vh" }}
             >
-              <Typography sx={{ color: 'green', fontWeight: '700' }}>
-                High:{' '}
+              <Typography sx={{ color: 'red', fontWeight: '700' }}>
+                Low:{' '}
                 {cryptData.market_data?.low_24h?.usd.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD'
                 })}
               </Typography>
-              <Typography sx={{ color: 'red', fontWeight: '700' }}>
-                Low:{' '}
+              <Typography sx={{ color: 'green', fontWeight: '700' }}>
+                High:{' '}
                 {cryptData.market_data?.high_24h?.usd.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD'
                 })}
               </Typography>
             </Box>
-          
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between', mb:"0.5vh" }}
+            >
+              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw",color:"#B8B8B8" }}>
+                Market Cap: <Tooltip
+                  title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
+Market Cap = Current Price x Circulating Supply."
+                >
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              
+              </Typography>
+              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw",color:"#B8B8B8" }}>
+                Fully Diluted Market Cap:<Tooltip
+                  title="The market cap if the max supply was in circulation.
+
+Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDMC = price x total supply. if max supply and total supply are infinite or not available, fully-diluted market cap shows."
+                >
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              
+              </Typography>
+            </Box>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between' }}
+            >
+              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw" }}>
+            
+                {cryptData.market_data?.market_cap?.usd.toLocaleString(
+                  'en-US',
+                  {
+                    style: 'currency',
+                    currency: 'USD'
+                  }
+                )
+                }
+              </Typography>
+              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw" }}>
+            
+                {cryptData.market_data?.fully_diluted_valuation?.usd?.toLocaleString(
+                  'en-US',
+                  {
+                    style: 'currency',
+                    currency: 'USD'
+                  }
+                )}
+              </Typography>
+            </Box>
           </Grid>
-          <Grid elevation={3} className='box-data'>
-             <Typography align="center">Converted value</Typography>
+
+          <Grid elevation={3} className='box-data' padding={1}>
+            <Typography align='center'>Converted value</Typography>
             <Box
               display='flex'
               flexDirection='column'
               align='center'
               sx={{ justifyContent: 'space-between' }}
             >
-             
-<Grid  display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between' }}>  <Typography sx={{ fontWeight: '700' }}>
+              <Grid
+                display='flex'
+                flexDirection='row'
+                alignItems='center'
+                sx={{ justifyContent: 'space-between' }}
+              >
                 {' '}
-                {cryptData?.tickers?.[0]?.converted_last?.btc} 
-              </Typography>
-              <Typography>BTC</Typography></Grid>
+                <Typography sx={{ fontWeight: '700' }}>
+                  {' '}
+                  {cryptData?.tickers?.[0]?.converted_last?.btc}
+                </Typography>
+                <Typography>BTC</Typography>
+              </Grid>
 
-              <Grid   display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between' }}><Typography sx={{ fontWeight: '700' }}>
-                {' '}
-                {cryptData?.tickers?.[0]?.converted_last?.eth} 
-              </Typography>
-              <Typography>ETH</Typography></Grid>
+              <Grid
+                display='flex'
+                flexDirection='row'
+                alignItems='center'
+                sx={{ justifyContent: 'space-between' }}
+              >
+                <Typography sx={{ fontWeight: '700' }}>
+                  {' '}
+                  {cryptData?.tickers?.[0]?.converted_last?.eth}
+                </Typography>
+                <Typography>ETH</Typography>
+              </Grid>
 
-              <Grid   display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between' }}> <Typography sx={{ fontWeight: '700' }}>
+              <Grid
+                display='flex'
+                flexDirection='row'
+                alignItems='center'
+                sx={{ justifyContent: 'space-between' }}
+              >
                 {' '}
-                {cryptData?.tickers?.[0]?.converted_last?.usd} 
-              </Typography>
-              <Typography>USD</Typography></Grid>
-            
-              
-             
+                <Typography sx={{ fontWeight: '700' }}>
+                  {' '}
+                  {cryptData?.tickers?.[0]?.converted_last?.usd}
+                </Typography>
+                <Typography>USD</Typography>
+              </Grid>
             </Box>
           </Grid>
-          <Grid elevation={3} className='box-data'>
+          <Grid elevation={3} className='box-data' padding={1}>
             <Typography>1</Typography>
           </Grid>
         </Box>
