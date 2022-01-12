@@ -133,7 +133,7 @@ function CoinDetails() {
           }}
           className="data-container"
         >
-          <Grid className="box-data" elevation={1} padding={1} sx={{}}>
+          <Grid className="box-data" elevation={1} padding={2} sx={{}}>
             <Box
               display="flex"
               flexDirection="column"
@@ -143,12 +143,12 @@ function CoinDetails() {
                <Box display="flex"
               flexDirection="row"
               alignItems="center"
-              sx={{ justifyContent: "space-between", mb: "0.5vh" }}
+              sx={{ justifyContent: "space-between", mx: "0.5vh" }}
             >
-                <Typography>{cryptData.name}</Typography>
-                <Typography sx={{ mx: "5px" }}>Price</Typography>
+                <Typography sx={{ mx: "5px",fontWeight:"900", fontSize:"1vw" }}>{cryptData.name}</Typography>
+                <Typography sx={{ mx: "5px",fontWeight:"900", fontSize:"1vw" }}>Price</Typography>
                 <Typography
-                  sx={{ textTransform: "uppercase", fontWeight: "bold" }}
+                  sx={{ textTransform: "uppercase", fontWeight: "bold", fontWeight:"900", fontSize:"1vw"}} 
                 >
                   ({cryptData.symbol})
                 </Typography>
@@ -156,8 +156,8 @@ function CoinDetails() {
 
               <Box display="flex"
               flexDirection="row"
-              alignItems="center"
-              sx={{ justifyContent: "space-between", mb: "0.5vh" }}
+              alignItems="center" 
+              sx={{ justifyContent: "space-between",mx:"0.5vh" }}
             >
               
                 {colorTrustScore === "green" ? (
@@ -167,12 +167,12 @@ function CoinDetails() {
                 ) : (
                   <SentimentDissatisfiedRoundedIcon style={{ fill: "red" }} />
                 )}{" "}
-                <Typography>Trust score</Typography>
+                <Typography >Trust score</Typography>
               </Box>
             </Box>
             <Box display="flex"
               flexDirection="row"
-              alignItems="center"
+              alignItems="center" mt="1vh"
               sx={{ justifyContent: "space-between", mb: "0.5vh" }}
             >
               <Typography
@@ -219,7 +219,7 @@ function CoinDetails() {
             <Box
               display="flex"
               flexDirection="row"
-              alignItems="center"
+              alignItems="center" mt="2vh"
               sx={{ justifyContent: "space-between", mb: "0.5vh" }}
             >
               <Typography sx={{ color: "red", fontWeight: "700" }}>
@@ -238,12 +238,86 @@ function CoinDetails() {
               </Typography>
             </Box>
           </Grid>
-          <Grid elevation={1} className="box-data" padding={1}>
+          
+
+          <Grid elevation={1} className="box-data" padding={2}>
+            <Typography align="center" sx={{fontWeight:"900", fontSize:"1vw", mb:"1vh"}}>Converted value</Typography>
+            <Box
+              display="flex"
+              flexDirection="column"
+              align="center"
+              sx={{ justifyContent: "space-between" }}
+            >
+              <Grid
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                sx={{ justifyContent: "space-between" }}
+              >
+                {" "}
+                {/* <Typography sx={{ fontWeight: '700' }}>
+                  {' '}
+                  {cryptData.market_data?.max_supply}
+                </Typography> */}
+              </Grid>
+
+              <Grid
+                display="flex"
+                flexDirection="row"
+                alignItems="center" mt="1vh"
+                sx={{ justifyContent: "space-between" }}
+              >
+                <Typography sx={{ fontWeight: "900", fontSize: "1vw" }}>
+                  {" "}
+                  {cryptData?.tickers?.[0]?.converted_last?.btc}
+                </Typography><Divider sx={{width: "40%",display:"inline"}}></Divider>
+                <Typography sx={{ fontWeight: "900", fontSize: "1vw", color: 'text.secondary' }}>BTC</Typography>
+              </Grid>
+              <Grid
+                display="flex"
+                flexDirection="row"
+                alignItems="center"  mt="1vh"
+                sx={{ justifyContent: "space-between" }}
+              >
+                <Typography sx={{ fontWeight: "900", fontSize: "1vw" }}>
+                  {" "}
+                  {cryptData?.tickers?.[0]?.converted_last?.eth}
+                </Typography><Divider sx={{width: "40%",display:"inline"}}></Divider>
+                <Typography sx={{ fontWeight: "900", fontSize: "1vw", color: 'text.secondary' }}>ETH</Typography>
+              </Grid>
+              <Grid
+                display="flex"
+                flexDirection="row"
+                alignItems="center" mt="1vh" 
+                sx={{ justifyContent: "space-between" }}
+              >
+                <Typography sx={{ fontWeight: "900", fontSize: "1vw" }}>
+                  {" "}
+                  {cryptData?.tickers?.[0]?.converted_last?.usd}
+                </Typography><Divider sx={{width: "40%",display:"inline"}}></Divider>
+                <Typography sx={{ fontWeight: "900", fontSize: "1vw", color: 'text.secondary' }}>USD</Typography>
+              </Grid>
+
+              <Grid
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                sx={{ justifyContent: "space-between" }}
+              >
+                {" "}
+                {/* <Typography sx={{ fontWeight: '700' }}>
+                  {' '}
+                  {cryptData.market_data?.total_supply}
+                </Typography> */}
+              </Grid>
+            </Box>
+          </Grid>
+          <Grid  elevation={1} className="box-data" padding={2}>
             <Box
               display="flex"
               flexDirection="row"
-              alignItems="center"
-              sx={{ justifyContent: "space-between", mb: "0.5vh" }}
+              alignItems="center" 
+              sx={{ justifyContent: "space-between" }}
             >
               <Typography
                 sx={{ fontWeight: "700", fontSize: "0.7vw", color: "#B8B8B8" }}
@@ -284,10 +358,10 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
             <Box
               display="flex"
               flexDirection="row"
-              alignItems="center"
+              alignItems="center" mt="0.7vh"
               sx={{ justifyContent: "space-between" }}
             >
-              <Typography sx={{ fontWeight: "700", fontSize: "0.7vw" }}>
+              <Typography sx={{ fontWeight: "900", fontSize: "0.8vw" }}>
                 {cryptData.market_data?.market_cap?.usd.toLocaleString(
                   "en-US",
                   {
@@ -296,7 +370,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                   }
                 )}
               </Typography>
-              <Typography sx={{ fontWeight: "700", fontSize: "0.7vw" }}>
+              <Typography sx={{ fontWeight: "900", fontSize: "0.8vw" }}>
                 {cryptData.market_data?.fully_diluted_valuation?.usd?.toLocaleString(
                   "en-US",
                   {
@@ -309,11 +383,12 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
             <Box
               display="flex"
               flexDirection="row"
-              alignItems="center"
+              alignItems="center"mt="0.7vh"
               sx={{ justifyContent: "space-between", mb: "0.5vh" }}
             >
               <Typography
                 sx={{ fontWeight: "700", fontSize: "0.7vw", color: "#B8B8B8" }}
+                
               >
                 Volume:{" "}
                 <Tooltip title="A measure of how much of a cryptocurrency was traded in the last 24 hours.">
@@ -344,7 +419,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
             <Box
               display="flex"
               flexDirection="row"
-              alignItems="center"
+              alignItems="center"mt="0.7vh"
               sx={{ justifyContent: "space-between" }}
             >
               <Box
@@ -353,7 +428,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 alignItems="center"
                 sx={{ justifyContent: "space-between" }}
               >
-                <Typography sx={{ fontWeight: "700", fontSize: "0.7vw" }}>
+                <Typography sx={{ fontWeight: "900", fontSize: "0.8vw" }}>
                   {cryptData.market_data?.total_volume?.usd.toLocaleString(
                     "en-US",
                     {
@@ -367,7 +442,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 </Typography>
               </Box>
 
-              <Typography sx={{ fontWeight: "700", fontSize: "0.7vw" }}>
+              <Typography sx={{ fontWeight: "900", fontSize: "0.8vw" }}>
                 {cryptData.market_data?.circulating_supply?.toLocaleString(
                   "en-US",
                   {
@@ -380,7 +455,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
             <Box
               display="flex"
               flexDirection="row"
-              alignItems="center"
+              alignItems="center" mt="1vh"
               sx={{ justifyContent: "space-between", mb: "0.5vh" }}
             >
               <Typography
@@ -430,87 +505,14 @@ If this data has not been submitted by the project or verified by the CMC team, 
                 alignItems="center"
                 sx={{ justifyContent: "space-between" }}
               >
-                <Typography sx={{ fontWeight: "700", fontSize: "0.7vw" }}>
+                <Typography sx={{ fontWeight: "900", fontSize: "0.8vw" }}>
                   {cryptData.market_data?.max_supply}
                 </Typography>
               </Box>
 
-              <Typography sx={{ fontWeight: "700", fontSize: "0.7vw" }}>
+              <Typography sx={{ fontWeight: "900", fontSize: "0.8vw" }}>
                 {cryptData.market_data?.total_supply}
               </Typography>
-            </Box>
-          </Grid>
-
-          <Grid elevation={1} className="box-data" padding={1}>
-            <Typography align="center">Converted value</Typography>
-            <Box
-              display="flex"
-              flexDirection="column"
-              align="center"
-              sx={{ justifyContent: "space-between" }}
-            >
-              <Grid
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                sx={{ justifyContent: "space-between" }}
-              >
-                {" "}
-                {/* <Typography sx={{ fontWeight: '700' }}>
-                  {' '}
-                  {cryptData.market_data?.max_supply}
-                </Typography> */}
-              </Grid>
-
-              <Grid
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                sx={{ justifyContent: "space-between" }}
-              >
-                <Typography sx={{ fontWeight: "700" }}>
-                  {" "}
-                  {cryptData?.tickers?.[0]?.converted_last?.btc}
-                </Typography>
-                <Typography>BTC</Typography>
-              </Grid>
-              <Grid
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                sx={{ justifyContent: "space-between" }}
-              >
-                <Typography sx={{ fontWeight: "700" }}>
-                  {" "}
-                  {cryptData?.tickers?.[0]?.converted_last?.eth}
-                </Typography>
-                <Typography>ETH</Typography>
-              </Grid>
-              <Grid
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                sx={{ justifyContent: "space-between" }}
-              >
-                <Typography sx={{ fontWeight: "700" }}>
-                  {" "}
-                  {cryptData?.tickers?.[0]?.converted_last?.usd}
-                </Typography>
-                <Typography>USD</Typography>
-              </Grid>
-
-              <Grid
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                sx={{ justifyContent: "space-between" }}
-              >
-                {" "}
-                {/* <Typography sx={{ fontWeight: '700' }}>
-                  {' '}
-                  {cryptData.market_data?.total_supply}
-                </Typography> */}
-              </Grid>
             </Box>
           </Grid>
         </Box>
