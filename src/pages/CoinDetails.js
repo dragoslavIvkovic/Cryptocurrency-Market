@@ -471,10 +471,10 @@ If this data has not been submitted by the project or verified by the CMC team, 
                 sx={{ justifyContent: 'space-between' }}
               >
                 {' '}
-                <Typography sx={{ fontWeight: '700' }}>
+                {/* <Typography sx={{ fontWeight: '700' }}>
                   {' '}
                   {cryptData.market_data?.max_supply}
-                </Typography>
+                </Typography> */}
               </Grid>
 
               <Grid
@@ -521,10 +521,10 @@ If this data has not been submitted by the project or verified by the CMC team, 
                 sx={{ justifyContent: 'space-between' }}
               >
                 {' '}
-                <Typography sx={{ fontWeight: '700' }}>
+                {/* <Typography sx={{ fontWeight: '700' }}>
                   {' '}
                   {cryptData.market_data?.total_supply}
-                </Typography>
+                </Typography> */}
               </Grid>
             </Box>
           </Grid>
