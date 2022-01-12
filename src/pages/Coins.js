@@ -79,6 +79,8 @@ function Coins ({
     setSearch(e.target.value)
   }
 
+
+  console.log(coins)
   // function createData(name, calories, fat, carbs, protein) {
   //   return { name, calories, fat, carbs, protein };
   // }

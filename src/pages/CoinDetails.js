@@ -29,7 +29,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded'
 import SentimentNeutralRoundedIcon from '@mui/icons-material/SentimentNeutralRounded'
-import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded';
+import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded'
 import InfoIcon from '@mui/icons-material/Info'
 
 function CoinDetails () {
@@ -106,7 +106,7 @@ function CoinDetails () {
         fill: true,
         backgroundColor: 'rgba(255,0,0,0.5)',
         borderColor: 'red',
-     
+
         pointHoverRadius: 5
       }
     ]
@@ -132,7 +132,7 @@ function CoinDetails () {
           }}
           className='data-container'
         >
-          <Grid className='box-data' elevation={3} padding={1} sx={{}}>
+          <Grid className='box-data' elevation={1} padding={1} sx={{}}>
             <Box
               display='flex'
               flexDirection='column'
@@ -171,7 +171,11 @@ function CoinDetails () {
             <Box
               display='flex'
               flexDirection='row'
-              sx={{ justifyContent: 'space-between', alignItems: 'center',mb:"1vh" }}
+              sx={{
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mb: '1vh'
+              }}
             >
               <Typography
                 sx={{ fontSize: '1.5vw', fontWeight: '700', mr: '0.5vw' }}
@@ -182,8 +186,7 @@ function CoinDetails () {
                     style: 'currency',
                     currency: 'USD'
                   }
-                )
-                }
+                )}
               </Typography>
               <Typography>
                 {cryptData.market_data?.price_change_24h < 0 ? (
@@ -219,7 +222,7 @@ function CoinDetails () {
               display='flex'
               flexDirection='row'
               alignItems='center'
-              sx={{ justifyContent: 'space-between',mb:"0.5vh" }}
+              sx={{ justifyContent: 'space-between', mb: '0.5vh' }}
             >
               <Typography sx={{ color: 'red', fontWeight: '700' }}>
                 Low:{' '}
@@ -236,15 +239,21 @@ function CoinDetails () {
                 })}
               </Typography>
             </Box>
+          </Grid>
+          <Grid elevation={1} className='box-data' padding={1}>
             <Box
               display='flex'
               flexDirection='row'
               alignItems='center'
-              sx={{ justifyContent: 'space-between', mb:"0.5vh" }}
+              sx={{ justifyContent: 'space-between', mb: '0.5vh' }}
             >
-              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw",color:"#B8B8B8" }}>
-                Market Cap: <Tooltip
+              <Typography
+                sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
+              >
+                Market Cap:{' '}
+                <Tooltip
                   title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
+
 Market Cap = Current Price x Circulating Supply."
                 >
                   <InfoIcon
@@ -255,13 +264,14 @@ Market Cap = Current Price x Circulating Supply."
                     }}
                   />
                 </Tooltip>
-              
               </Typography>
-              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw",color:"#B8B8B8" }}>
-                Fully Diluted Market Cap:<Tooltip
-                  title="The market cap if the max supply was in circulation.
-
-Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDMC = price x total supply. if max supply and total supply are infinite or not available, fully-diluted market cap shows."
+              <Typography
+                sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
+              >
+                Fully Diluted Market Cap:
+                <Tooltip
+                  title='The market cap if the max supply was in circulation.
+Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDMC = price x total supply. if max supply and total supply are infinite or not available, fully-diluted market cap shows.'
                 >
                   <InfoIcon
                     color='disabled'
@@ -271,7 +281,6 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                     }}
                   />
                 </Tooltip>
-              
               </Typography>
             </Box>
             <Box
@@ -280,20 +289,163 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
               alignItems='center'
               sx={{ justifyContent: 'space-between' }}
             >
-              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw" }}>
-            
+              <Typography sx={{ fontWeight: '700', fontSize: '0.7vw' }}>
                 {cryptData.market_data?.market_cap?.usd.toLocaleString(
                   'en-US',
                   {
                     style: 'currency',
                     currency: 'USD'
                   }
-                )
-                }
+                )}
               </Typography>
-              <Typography sx={{ fontWeight: '700',fontSize:"0.7vw" }}>
-            
+              <Typography sx={{ fontWeight: '700', fontSize: '0.7vw' }}>
                 {cryptData.market_data?.fully_diluted_valuation?.usd?.toLocaleString(
+                  'en-US',
+                  {
+                    style: 'currency',
+                    currency: 'USD'
+                  }
+                )}
+              </Typography>
+            </Box>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between', mb: '0.5vh' }}
+            >
+              <Typography
+                sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
+              >
+                Volume:{' '}
+                <Tooltip title='A measure of how much of a cryptocurrency was traded in the last 24 hours.'>
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              </Typography>
+              <Typography
+                sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
+              >
+                Circulating Supply:
+                <Tooltip title='The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock marke'>
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              </Typography>
+            </Box>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between' }}
+            >
+              <Box
+                display='flex'
+                flexDirection='row'
+                alignItems='center'
+                sx={{ justifyContent: 'space-between' }}
+              >
+                <Typography sx={{ fontWeight: '700', fontSize: '0.7vw' }}>
+                  {cryptData.market_data?.total_volume?.usd.toLocaleString(
+                    'en-US',
+                    {
+                      style: 'currency',
+                      currency: 'USD'
+                    }
+                  )}
+                </Typography>
+                <Typography sx={{ ml: '0.5vw', backgroundColor: 'gray' }}>
+                  24
+                </Typography>
+              </Box>
+
+              <Typography sx={{ fontWeight: '700', fontSize: '0.7vw' }}>
+                {cryptData.market_data?.circulating_supply?.toLocaleString(
+                  'en-US',
+                  {
+                    style: 'currency',
+                    currency: 'USD'
+                  }
+                )}
+              </Typography>
+            </Box>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between', mb: '0.5vh' }}
+            >
+              <Typography
+                sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
+              >
+                Max Supply :{' '}
+                <Tooltip
+                  title='The maximum amount of coins that will ever exist in the lifetime of the cryptocurrency. It is analogous to the fully diluted shares in the stock market.
+If this data has not been submitted by the project or verified by the CMC team, max supply shows - -.'
+                >
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              </Typography>
+              <Typography
+                sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
+              >
+                Total Supply:
+                <Tooltip
+                  title='The amount of coins that have been already created, minus any coins that have been burned. It is analogous to the outstanding shares in the stock market.
+If this data has not been submitted by the project or verified by the CMC team, total supply shows - -.'
+                >
+                  <InfoIcon
+                    color='disabled'
+                    sx={{
+                      fontSize: 'large',
+                      verticalAlign: 'middle'
+                    }}
+                  />
+                </Tooltip>
+              </Typography>
+            </Box>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              sx={{ justifyContent: 'space-between' }}
+            >
+              <Box
+                display='flex'
+                flexDirection='row'
+                alignItems='center'
+                sx={{ justifyContent: 'space-between' }}
+              >
+                <Typography sx={{ fontWeight: '700', fontSize: '0.7vw' }}>
+                  {cryptData.market_data?.total_volume?.usd.toLocaleString(
+                    'en-US',
+                    {
+                      style: 'currency',
+                      currency: 'USD'
+                    }
+                  )}
+                </Typography>
+             
+              </Box>
+
+              <Typography sx={{ fontWeight: '700', fontSize: '0.7vw' }}>
+                {cryptData.market_data?.circulating_supply?.toLocaleString(
                   'en-US',
                   {
                     style: 'currency',
@@ -304,7 +456,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
             </Box>
           </Grid>
 
-          <Grid elevation={3} className='box-data' padding={1}>
+          <Grid elevation={1} className='box-data' padding={1}>
             <Typography align='center'>Converted value</Typography>
             <Box
               display='flex'
@@ -321,11 +473,22 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 {' '}
                 <Typography sx={{ fontWeight: '700' }}>
                   {' '}
+                  {cryptData.market_data?.max_supply}
+                </Typography>
+              </Grid>
+
+              <Grid
+                display='flex'
+                flexDirection='row'
+                alignItems='center'
+                sx={{ justifyContent: 'space-between' }}
+              >
+                <Typography sx={{ fontWeight: '700' }}>
+                  {' '}
                   {cryptData?.tickers?.[0]?.converted_last?.btc}
                 </Typography>
                 <Typography>BTC</Typography>
               </Grid>
-
               <Grid
                 display='flex'
                 flexDirection='row'
@@ -338,6 +501,18 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 </Typography>
                 <Typography>ETH</Typography>
               </Grid>
+              <Grid
+                display='flex'
+                flexDirection='row'
+                alignItems='center'
+                sx={{ justifyContent: 'space-between' }}
+              >
+                <Typography sx={{ fontWeight: '700' }}>
+                  {' '}
+                  {cryptData?.tickers?.[0]?.converted_last?.usd}
+                </Typography>
+                <Typography>USD</Typography>
+              </Grid>
 
               <Grid
                 display='flex'
@@ -348,14 +523,10 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 {' '}
                 <Typography sx={{ fontWeight: '700' }}>
                   {' '}
-                  {cryptData?.tickers?.[0]?.converted_last?.usd}
+                  {cryptData.market_data?.total_supply}
                 </Typography>
-                <Typography>USD</Typography>
               </Grid>
             </Box>
-          </Grid>
-          <Grid elevation={3} className='box-data' padding={1}>
-            <Typography>1</Typography>
           </Grid>
         </Box>
 
@@ -366,7 +537,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
           }}
           align='center'
         >
-          <Paper elevation={3} className='chart-box'>
+          <Paper elevation={1} className='chart-box'>
             <Button className='btn-days' onClick={e => setDaysAgo('24h')}>
               1D
             </Button>
