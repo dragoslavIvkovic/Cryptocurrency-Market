@@ -28,11 +28,10 @@ import {
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import InfoIcon from '@mui/icons-material/Info'
-import CoinDetails from './CoinDetails'
 
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 import SearchIcon from '@mui/icons-material/Search'
 
@@ -78,7 +77,6 @@ function Coins ({
   const handleChange = e => {
     setSearch(e.target.value)
   }
-
 
   console.log(coins)
   // function createData(name, calories, fat, carbs, protein) {
@@ -239,7 +237,6 @@ Market Cap = Current Price x Circulating Supply."
                         whiteSpace: 'nowrap'
                       }}
                     >
-               
                       <ArrowDropUpIcon style={{ fill: 'green' }} />{' '}
                       {row.price_change_24h?.toFixed(2)}%
                     </Typography>
