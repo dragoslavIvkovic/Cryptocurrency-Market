@@ -33,7 +33,7 @@ import SentimentNeutralRoundedIcon from '@mui/icons-material/SentimentNeutralRou
 import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded'
 import InfoIcon from '@mui/icons-material/Info'
 import LinkIcon from '@mui/icons-material/Link'
-import { SingleCoin, HistoricalChart,CryptoNews } from '../api/coinGecko'
+import { SingleCoin, HistoricalChart, CryptoNews } from '../api/coinGecko'
 
 function CoinDetails () {
   const { coinId } = useParams()
@@ -68,25 +68,19 @@ function CoinDetails () {
       .get(HistoricalChart(coinId, dayAgo))
       .then(res => {
         setMarketChart(res.data.prices)
-       
       })
       .catch(error => console.log(error))
   }
-   
 
   useEffect(() => {
     getMarketChart()
   }, [dayAgo])
-
- 
 
   const getCryptoData = async () => {
     await axios
       .get(SingleCoin(coinId))
       .then(res => {
         setCryptData(res.data)
-      
-        
       })
       .catch(error => console.log(error))
   }
@@ -95,18 +89,12 @@ function CoinDetails () {
     getCryptoData()
   }, [])
 
-
-
-  
-
-
-
-   const getNews = async () => {
+  const getNews = async () => {
     await axios
       .get(CryptoNews(coinId))
       .then(res => {
-        setCryptNews(res.data);
-        console.log(res.data);
+        setCryptNews(res.data)
+        console.log(res.data)
       })
       .catch(error => console.log(error))
   }
@@ -114,7 +102,7 @@ function CoinDetails () {
     getNews()
   }, [])
 
-console.log(cryptoNews)
+  console.log(cryptoNews)
 
   let colorTrustScore = cryptData.tickers?.[0].trust_score
 
@@ -134,6 +122,8 @@ console.log(cryptoNews)
       }
     ]
   }
+
+  console.log("img",cryptoNews?.articles?.urlToImage)
 
   return (
     <Box>
@@ -724,11 +714,16 @@ If this data has not been submitted by the project or verified by the CMC team, 
             </a>
           </Box>
         </CardContent>
-        <a  href={cryptData.tickers?.[0]?.trade_url} align='center'  target='_blank'
-              rel='noreferrer noopener'>TRADE</a>
+        <a
+          href={cryptData.tickers?.[0]?.trade_url}
+          align='center'
+          target='_blank'
+          rel='noreferrer noopener'
+        >
+          TRADE
+        </a>
       </Box>
 
-     
       <Box
         elevation={1}
         sx={{
@@ -742,55 +737,28 @@ If this data has not been submitted by the project or verified by the CMC team, 
           borderRadius: '8px'
         }}
       >
-     
-     
-
-           
-            <Grid>
-            {cryptoNews.articles?.slice(0, 5).map( article => 
-
+        <Grid>
+        {/* <img src={cryptoNews.articles?.[0]?.urlToImage} alt="vaa"/> */}
+          {/* {cryptoNews.articles?.slice(0, 3).map(article => (
             <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-       
-        title={article?.title}
-        
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={article?.articles?.urlToImage}
-        alt="x"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {article?.articles?.[0]?.description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        LinkIcon
-      </CardActions>
-      
-        
-      
-    </Card>
-            )}
-
-           
-
-
-
-
-            
-            
-            </Grid>
-          
-       
-       
-
-        
-      
-    
-    </Box>
+              <CardHeader title={article?.title} />
+              <CardMedia
+                component='img'
+                height='60'
+                width="60"
+                image={article?.articles?.[0]?.urlToImage}
+                alt='x'
+              />
+              <CardContent>
+                <Typography variant='body2' color='text.secondary'>
+                  {article?.articles?.[0]?.description}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing><LinkIcon/></CardActions>
+            </Card>
+          ))} */}
+        </Grid>
+      </Box>
     </Box>
   )
 }

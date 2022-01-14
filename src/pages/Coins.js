@@ -35,35 +35,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 import SearchIcon from '@mui/icons-material/Search'
 
-function Coins ({
-  id,
-  symbol,
-  name,
-  image,
-  current_price,
-  market_cap,
-  market_cap_rank,
-  total_volume,
-  high_24h,
-  low_24h,
-  price_change_24h,
-  price_change_percentage_24h,
-  market_cap_change_24h,
-  market_cap_change_percentage_24h,
-  circulating_supply,
-  total_supply,
-  max_supply,
-  ath,
-  ath_change_percentage,
-  ath_date,
-  atl,
-  atl_change_percentage,
-  atl_date,
-  roi,
-  last_updated,
-  price_change_percentage_1h_in_currency,
-  price_change_percentage_24h_in_currency
-}) {
+function Coins () {
   const [search, setSearch] = useState('')
   const { coins } = useContext(StateContext)
 

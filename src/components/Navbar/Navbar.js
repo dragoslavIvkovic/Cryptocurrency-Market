@@ -1,12 +1,12 @@
 import { AppBar, Toolbar } from '@material-ui/core'
 import { Box, Grid } from '@mui/material'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, } from 'react-router-dom'
 import '../../_styles/Navbar.scss'
 
 export default function Navbar () {
   return (
-    <header>
+    <nav>
       <Box
         sx={{
           mx: '50px',
@@ -22,18 +22,18 @@ export default function Navbar () {
         <Link
           className='navbar-link'
           style={{ float: 'right' }}
-          to='/watchlist'
+          to='watchlist'
         >
           Watchlist
         </Link>
         <Link
           className='navbar-link'
           style={{ float: 'right' }}
-          to='/login-signup'
+          to='login-signup'
         >
           LoginSignup
         </Link>
       </Box>
-    </header>
+    </nav>
   )
 }
