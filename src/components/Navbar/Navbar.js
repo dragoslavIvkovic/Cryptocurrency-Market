@@ -29,7 +29,7 @@ export default function Navbar () {
         <Link
           className='navbar-link'
           style={{ float: 'right' }}
-          to='login-signup'
+          to='signup'
         >
           LoginSignup
         </Link>
