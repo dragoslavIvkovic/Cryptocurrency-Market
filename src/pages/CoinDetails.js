@@ -739,24 +739,24 @@ If this data has not been submitted by the project or verified by the CMC team, 
       >
         <Grid>
         {/* <img src={cryptoNews.articles?.[0]?.urlToImage} alt="vaa"/> */}
-          {/* {cryptoNews.articles?.slice(0, 3).map(article => (
+          {cryptoNews.articles?.slice(0, 3).map(article => (
             <Card sx={{ maxWidth: 345 }}>
-              <CardHeader title={article?.title} />
+              <CardHeader title={article?.title} style={{fontSize:"0.5em"}}/>
               <CardMedia
                 component='img'
                 height='60'
                 width="60"
-                image={article?.articles?.[0]?.urlToImage}
+                image={article?.urlToImage}
                 alt='x'
               />
               <CardContent>
                 <Typography variant='body2' color='text.secondary'>
-                  {article?.articles?.[0]?.description}
+                  {article?.description}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing><LinkIcon/></CardActions>
             </Card>
-          ))} */}
+          ))}
         </Grid>
       </Box>
     </Box>
