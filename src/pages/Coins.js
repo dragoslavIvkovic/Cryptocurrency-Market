@@ -33,11 +33,14 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
-import SearchIcon from '@mui/icons-material/Search'
+import SearchIcon from '@mui/icons-material/Search';
+import StarIcon from '@mui/icons-material/Star';
 
 function Coins () {
-  const [search, setSearch] = useState('')
-  const { coins } = useContext(StateContext)
+  const [search, setSearch] = useState('');
+  const [data,setData] = useState([]);
+  const { coins,watchlist,setWatchlist } = useContext(StateContext);
+   const [clicked, setClicked] = useState(false)
 
   const filteredCoins = coins.filter(
     coin =>
@@ -50,10 +53,9 @@ function Coins () {
     setSearch(e.target.value)
   }
 
-  console.log(coins)
-  // function createData(name, calories, fat, carbs, protein) {
-  //   return { name, calories, fat, carbs, protein };
-  // }
+console.log(watchlist);
+
+
 
   return (
     <Container sx={{ width: '80vw', marginTop: '5rem' }} className=''>
@@ -90,8 +92,8 @@ function Coins () {
           <TableHead>
             <TableRow>
               <TableCell pl={9}>
-                <Tooltip title='Add to watchlist'>
-                  <StarBorderIcon />
+                <Tooltip title='Add to watchlist' >
+                <StarBorderIcon  />
                 </Tooltip>
               </TableCell>
               <TableCell align='left'>Name</TableCell>
@@ -140,16 +142,32 @@ Market Cap = Current Price x Circulating Supply."
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredCoins.map(row => (
+            {filteredCoins.map((row) => (
               <TableRow
                 className='table-row'
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align='left'>
-                  <Tooltip title='Add to watchlist'>
-                    <StarBorderIcon />
-                  </Tooltip>
+                  {/* <Tooltip title='Add to watchlist'> */}
+                  
+             {/* <Box>   { watchlist.includes(row.id) ? (
+             <StarIcon onClick={(e) => setWatchlist = watchlist.filter(item => item !== e.target.value)}   />
+           ) : (<StarBorderIcon  onClick={() => setWatchlist (watchlist => [...watchlist, row.id])}   /> )
+           
+            }
+            </Box> */}
+             <Box>   { (watchlist.indexOf(row.id) === -1) ? (
+             <StarBorderIcon onClick={() =>    setWatchlist([...watchlist, row.id])}   />
+           ) : (<StarIcon  onClick={() => setWatchlist (watchlist.filter((el) => {
+        return el !== row.id}))}   /> )
+           
+            }
+            </Box>
+             
+        
+
+                  {/* </Tooltip> */}
                 </TableCell>
                 <TableCell
                   component='th'

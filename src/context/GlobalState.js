@@ -6,20 +6,11 @@ const StateContext = React.createContext()
 
 function StateProvider ({ children }) {
   // state of coins and
-  const [coins, setCoins] = useState([])
+  const [coins, setCoins] = useState([]);
+  const [watchlist,setWatchlist] = useState([ localStorage.getItem("watchList")])
+  
 
-  // fetching product data
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
-  //     )
-  //     .then(res => {
-  //       setCoins(res.data)
-  //     })
-  //     .catch(error => console.log(error))
-  // }, [])
 
    const  getCoinData = async () => {
      await axios.get(CoinList())
@@ -33,23 +24,14 @@ function StateProvider ({ children }) {
      getCoinData();
   }, []);
 
-  // const getData = async () => {
-  //   await axios
-  //     .get(
-  //       'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
-  //     )
-  //     .then(res => {
-  //       setCoins(res.data)
-  //     })
-  //     .catch(error => console.log(error))
-  // }
 
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+    useEffect(() => {
+    localStorage.setItem("watchList", watchlist);
+  }, [watchlist]);
+
 
   return (
-    <StateContext.Provider value={{ coins }}>{children}</StateContext.Provider>
+    <StateContext.Provider value={{ coins,watchlist,setWatchlist }}>{children}</StateContext.Provider>
   )
 }
 

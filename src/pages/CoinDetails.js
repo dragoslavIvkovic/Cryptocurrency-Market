@@ -94,7 +94,7 @@ function CoinDetails () {
       .get(CryptoNews(coinId))
       .then(res => {
         setCryptNews(res.data)
-        console.log(res.data)
+      
       })
       .catch(error => console.log(error))
   }
@@ -102,7 +102,7 @@ function CoinDetails () {
     getNews()
   }, [])
 
-  console.log(cryptoNews)
+
 
   let colorTrustScore = cryptData.tickers?.[0].trust_score
 
@@ -123,7 +123,7 @@ function CoinDetails () {
     ]
   }
 
-  console.log("img",cryptoNews?.articles?.urlToImage)
+
 
   return (
     <Box>
