@@ -158,9 +158,21 @@ Market Cap = Current Price x Circulating Supply."
             }
             </Box> */}
              <Box>   { (watchlist.indexOf(row.id) === -1) ? (
-             <StarBorderIcon onClick={() =>    setWatchlist([...watchlist, row.id])}   />
-           ) : (<StarIcon  onClick={() => setWatchlist (watchlist.filter((el) => {
-        return el !== row.id}))}   /> )
+               
+            <Tooltip title="Add to Watchlist ">
+      <IconButton>   <StarBorderIcon onClick={() =>    setWatchlist([...watchlist, row.id])}   /></IconButton>
+    </Tooltip>
+           ) : (
+             
+             
+           <Tooltip title="Remove from watchlist">
+      <IconButton> <StarIcon  onClick={() => setWatchlist (watchlist.filter((el) => {
+        return el !== row.id}))}   />    </IconButton>
+    </Tooltip>
+        
+        
+        
+         )
            
             }
             </Box>
