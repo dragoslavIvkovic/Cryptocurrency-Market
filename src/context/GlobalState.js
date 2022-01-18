@@ -7,6 +7,7 @@ const StateContext = React.createContext()
 function StateProvider ({ children }) {
   // state of coins and
   const [coins, setCoins] = useState([]);
+  
   const [watchlist,setWatchlist] = useState([ localStorage.getItem("watchList")])
   
 

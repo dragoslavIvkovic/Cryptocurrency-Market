@@ -4,7 +4,7 @@
 //   baseURL: "https://api.coingecko.com/api/v3",
 // });
 
-const API_KEY = "1a4de93e486247a2ab133ee9987f604c";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 //contex
 export const CoinList = () =>
