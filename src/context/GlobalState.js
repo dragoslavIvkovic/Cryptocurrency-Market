@@ -8,7 +8,8 @@ function StateProvider ({ children }) {
   // state of coins and
   const [coins, setCoins] = useState([]);
   
-  const [watchlist,setWatchlist] = useState([ localStorage.getItem("watchList")])
+  // const [watchlist,setWatchlist] = useState([ localStorage.getItem("watchList")])
+  const [watchlist,setWatchlist] = useState([ ])
   
 
 
@@ -26,9 +27,9 @@ function StateProvider ({ children }) {
   }, []);
 
 
-    useEffect(() => {
-    localStorage.setItem("watchList", watchlist);
-  }, [watchlist]);
+  //   useEffect(() => {
+  //   localStorage.setItem("watchList", watchlist);
+  // }, [watchlist]);
 
 
   return (

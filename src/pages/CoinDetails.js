@@ -94,15 +94,12 @@ function CoinDetails () {
       .get(CryptoNews(coinId))
       .then(res => {
         setCryptNews(res.data)
-      
       })
       .catch(error => console.log(error))
   }
   useEffect(() => {
     getNews()
   }, [])
-
-
 
   let colorTrustScore = cryptData.tickers?.[0].trust_score
 
@@ -122,8 +119,6 @@ function CoinDetails () {
       }
     ]
   }
-
-
 
   return (
     <Box>
@@ -738,14 +733,17 @@ If this data has not been submitted by the project or verified by the CMC team, 
         }}
       >
         <Grid>
-        {/* <img src={cryptoNews.articles?.[0]?.urlToImage} alt="vaa"/> */}
+          {/* <img src={cryptoNews.articles?.[0]?.urlToImage} alt="vaa"/> */}
           {cryptoNews.articles?.slice(0, 3).map(article => (
             <Card sx={{ maxWidth: 345 }}>
-              <CardHeader title={article?.title} style={{fontSize:"0.5em"}}/>
+              <CardHeader
+                title={article?.title}
+                style={{ fontSize: '0.5em' }}
+              />
               <CardMedia
                 component='img'
                 height='60'
-                width="60"
+                width='60'
                 image={article?.urlToImage}
                 alt='x'
               />
@@ -754,7 +752,9 @@ If this data has not been submitted by the project or verified by the CMC team, 
                   {article?.description}
                 </Typography>
               </CardContent>
-              <CardActions disableSpacing><LinkIcon/></CardActions>
+              <CardActions disableSpacing>
+                <LinkIcon />
+              </CardActions>
             </Card>
           ))}
         </Grid>
