@@ -27,9 +27,6 @@ function StateProvider ({ children }) {
   }, []);
 
 
-  //   useEffect(() => {
-  //   localStorage.setItem("watchList", watchlist);
-  // }, [watchlist]);
 
 
   return (

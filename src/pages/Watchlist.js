@@ -10,7 +10,7 @@ import {
   TableRow,
   Tooltip,
   Typography
-} from '@mui/material';
+} from '@mui/material'
 import '../_styles/Coin.scss'
 import React, { useContext } from 'react'
 import { StateContext } from '../context/GlobalState'
@@ -27,6 +27,8 @@ import StarIcon from '@mui/icons-material/Star'
 
 export default function Watchlist () {
   const { coins, watchlist, setWatchlist } = useContext(StateContext)
+
+  const results = coins.filter(item => watchlist?.includes(item.id))
 
   return (
     <Paper elevation={3} sx={{ overflow: 'hidden' }}>
@@ -79,7 +81,7 @@ Market Cap = Current Price x Circulating Supply."
             </TableCell>
           </TableRow>
         </TableHead>
-        {watchlist.map(coin => (
+        {results.map(coin => (
           <TableRow
             className='table-coin'
             key={coin.id}
@@ -88,12 +90,40 @@ Market Cap = Current Price x Circulating Supply."
             <TableCell align='left'>
               <Box>
                 {' '}
-                {watchlist.indexOf(coin) === -1 ? (
+                {watchlist.includes(coin.id) ? (
+                   <Tooltip title='Remove from watchlist'>
+                    <IconButton>
+                      {' '}
+                      <StarIcon
+                        onClick={() =>
+                          setWatchlist(
+                            watchlist.filter(el => {
+                              return el !== coin.id
+                            })
+                          )
+                        }
+                      />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title='Remove from watchlist'>
+                    <IconButton>
+                     
+                      <StarIcon
+                      
+                      />
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </Box>
+              {/* <Box>
+                {' '}
+                {results.includes(coin.id) ? (
                   <Tooltip title='Add to Watchlist '>
                     <IconButton>
                       {' '}
                       <StarBorderIcon
-                        onClick={() => setWatchlist([...watchlist, coin])}
+                        onClick={() => setWatchlist([...watchlist, coin.id])}
                       />
                     </IconButton>
                   </Tooltip>
@@ -104,8 +134,8 @@ Market Cap = Current Price x Circulating Supply."
                       <StarIcon
                         onClick={() =>
                           setWatchlist(
-                            watchlist.filter(el => {
-                              return el !== coin
+                            results.filter(el => {
+                              return el !== coin.id
                             })
                           )
                         }
@@ -113,7 +143,16 @@ Market Cap = Current Price x Circulating Supply."
                     </IconButton>
                   </Tooltip>
                 )}
-              </Box>
+              </Box> */}
+
+
+
+
+
+
+
+
+
 
               {/* </Tooltip> */}
             </TableCell>

@@ -1,5 +1,6 @@
 
 import { initializeApp } from "firebase/app";
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
      apiKey: "AIzaSyCjkUQ6Rak8oaPkNu26eboiAvkpSfZ7bXw",
@@ -7,11 +8,13 @@ const firebaseConfig = {
   projectId: "crypto-market-c4e58",
   storageBucket: "crypto-market-c4e58.appspot.com",
   messagingSenderId: "1061948546946",
-  appId: "1:1061948546946:web:d3dc7c7f04caea7df0b99b"
+  appId: "1:1061948546946:web:d3dc7c7f04caea7df0b99b",
+  // databaseURL:"https://crypto-market-c4e58-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 export const app = initializeApp(firebaseConfig);
-
+const db = getFirestore(app);
+export { db }
 
 
 

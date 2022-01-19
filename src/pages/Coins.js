@@ -53,7 +53,7 @@ function Coins () {
     setSearch(e.target.value)
   }
 
-  console.log(watchlist)
+
 
   return (
     <Container sx={{ width: '80vw', marginTop: '5rem' }} className=''>
@@ -85,11 +85,11 @@ function Coins () {
         </FormControl>
       </Grid>
 
-      <Paper elevation={3} sx={{ overflow: 'hidden' }}>
+      <TableContainer elevation={3} component={Paper}>
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
-              <TableCell pl={9}>
+              <TableCell>
                 <Tooltip title='Add to watchlist'>
                   <StarBorderIcon />
                 </Tooltip>
@@ -146,45 +146,30 @@ Market Cap = Current Price x Circulating Supply."
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align='left'>
-                  {/* <Tooltip title='Add to watchlist'> */}
-
-                  {/* <Box>   { watchlist.includes(row.id) ? (
-             <StarIcon onClick={(e) => setWatchlist = watchlist.filter(item => item !== e.target.value)}   />
-           ) : (<StarBorderIcon  onClick={() => setWatchlist (watchlist => [...watchlist, row.id])}   /> )
-           
-            }
-            </Box> */}
-                  <Box>
-                    {' '}
-                    {watchlist.indexOf(row) === -1 ? (
-                      <Tooltip title='Add to Watchlist '>
-                        <IconButton>
-                          {' '}
-                          <StarBorderIcon
-                            onClick={() => setWatchlist([...watchlist, row])}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title='Remove from watchlist'>
-                        <IconButton>
-                          {' '}
-                          <StarIcon
-                            onClick={() =>
-                              setWatchlist(
-                                watchlist.filter(el => {
-                                  return el !== row
-                                })
-                              )
-                            }
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                  </Box>
-
-                  {/* </Tooltip> */}
+                <TableCell align='left' component='th' scope='row'>
+                  {watchlist.indexOf(row.id) === -1 ? (
+                    <Tooltip title='Add to Watchlist '>
+                      <IconButton>
+                        <StarBorderIcon
+                          onClick={() => setWatchlist([...watchlist, row.id])}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title='Remove from watchlist'>
+                      <IconButton>
+                        <StarIcon
+                          onClick={() =>
+                            setWatchlist(
+                              watchlist.filter(el => {
+                                return el !== row.id
+                              })
+                            )
+                          }
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                 </TableCell>
                 <TableCell
                   component='th'
@@ -196,8 +181,8 @@ Market Cap = Current Price x Circulating Supply."
                     src={row.image}
                     alt='alt'
                     style={{
-                      width: '30px',
-                      maxHeight: '30px'
+                      width: '40px',
+                      height: '40px'
                     }}
                   />
                   <Typography mx={1} className='coin_name'>
@@ -208,7 +193,7 @@ Market Cap = Current Price x Circulating Supply."
                     <Button className='btn-buy__coin'>Buy</Button>
                   </Link>
                 </TableCell>
-                {/* <TableCell align='left'>{row.symbol}</TableCell> */}
+
                 <TableCell align='left'>
                   <Typography
                     className='coin_price'
@@ -270,25 +255,7 @@ Market Cap = Current Price x Circulating Supply."
             ))}
           </TableBody>
         </Table>
-      </Paper>
-
-      {/* {filteredCoins.map(coin => {
-        return (
-          <>
-            <CoinProps
-              key={coin.id}
-              image={coin.image}
-              name={coin.name}
-              current_price={coin.current_price}
-              symbol={coin.symbol}
-             price_change_24h={coin.price_change_percentage_24h}
-            />
-           <Link to={`/coin/${coin.id}`}>
-              <button className='view-detail-btn'>View Details</button>
-            </Link>
-          </>
-        )
-      })} */}
+      </TableContainer>
     </Container>
   )
 }
