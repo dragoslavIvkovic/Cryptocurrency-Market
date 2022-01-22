@@ -12,7 +12,7 @@ import {
   Typography
 } from '@mui/material'
 import '../_styles/Coin.scss'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '../context/GlobalState'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
@@ -23,10 +23,18 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 import SearchIcon from '@mui/icons-material/Search'
-import StarIcon from '@mui/icons-material/Star'
+import StarIcon from '@mui/icons-material/Star';
 
 export default function Watchlist () {
-  const { coins, watchlist, setWatchlist } = useContext(StateContext)
+  const { coins, watchlist, setWatchlist } = useContext(StateContext);
+ 
+
+
+
+
+
+
+
 
   const results = coins.filter(item => watchlist?.includes(item.id))
 
@@ -91,7 +99,7 @@ Market Cap = Current Price x Circulating Supply."
               <Box>
                 {' '}
                 {watchlist.includes(coin.id) ? (
-                   <Tooltip title='Remove from watchlist'>
+                  <Tooltip title='Remove from watchlist'>
                     <IconButton>
                       {' '}
                       <StarIcon
@@ -108,10 +116,7 @@ Market Cap = Current Price x Circulating Supply."
                 ) : (
                   <Tooltip title='Remove from watchlist'>
                     <IconButton>
-                     
-                      <StarIcon
-                      
-                      />
+                      <StarIcon />
                     </IconButton>
                   </Tooltip>
                 )}
@@ -144,15 +149,6 @@ Market Cap = Current Price x Circulating Supply."
                   </Tooltip>
                 )}
               </Box> */}
-
-
-
-
-
-
-
-
-
 
               {/* </Tooltip> */}
             </TableCell>

@@ -589,7 +589,7 @@ If this data has not been submitted by the project or verified by the CMC team, 
           }}
           align='center'
         >
-          <Paper elevation={1} className='chart-box'>
+          <Paper sx={{backgroundColor:"white"}} elevation={1} className='chart-box'>
             <Button className='btn-days' onClick={e => setDaysAgo('24h')}>
               1D
             </Button>

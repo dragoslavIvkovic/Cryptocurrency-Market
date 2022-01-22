@@ -1,6 +1,4 @@
 
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
      apiKey: "AIzaSyCjkUQ6Rak8oaPkNu26eboiAvkpSfZ7bXw",
@@ -12,11 +10,7 @@ const firebaseConfig = {
   // databaseURL:"https://crypto-market-c4e58-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
-export const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-export { db }
-
-
+export default firebaseConfig;
 
 
 

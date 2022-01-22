@@ -9,5 +9,7 @@ Tasks:
 8. Pagination
 9. ✔️ Crypto news
 10. filter coin high to low
+11. Loading 
+11. add tabs to chart
 
  
