@@ -14,16 +14,8 @@ import {
 import '../_styles/Coin.scss'
 import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '../context/GlobalState'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import InfoIcon from '@mui/icons-material/Info'
+import { StarBorder ,Info,ArrowDropUp,ArrowDropDown,Search,Star } from '@mui/icons-material';
 
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-
-import SearchIcon from '@mui/icons-material/Search'
-import StarIcon from '@mui/icons-material/Star';
 
 export default function Watchlist () {
   const { coins, watchlist, setWatchlist } = useContext(StateContext);
@@ -50,7 +42,7 @@ export default function Watchlist () {
             <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
               Total Volume
               <Tooltip title='A measure of how much of a cryptocurrency was traded in the last 24 hours.'>
-                <InfoIcon
+                <Info
                   color='disabled'
                   sx={{
                     fontSize: 'large',
@@ -66,7 +58,7 @@ export default function Watchlist () {
                 title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
 Market Cap = Current Price x Circulating Supply."
               >
-                <InfoIcon
+                <Info
                   color='disabled'
                   sx={{
                     fontSize: 'large',
@@ -78,7 +70,7 @@ Market Cap = Current Price x Circulating Supply."
             <TableCell align='left'>
               Circulating Supply
               <Tooltip title='The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.'>
-                <InfoIcon
+                <Info
                   color='disabled'
                   sx={{
                     fontSize: 'large',
@@ -102,7 +94,7 @@ Market Cap = Current Price x Circulating Supply."
                   <Tooltip title='Remove from watchlist'>
                     <IconButton>
                       {' '}
-                      <StarIcon
+                      <Star
                         onClick={() =>
                           setWatchlist(
                             watchlist.filter(el => {
@@ -116,41 +108,12 @@ Market Cap = Current Price x Circulating Supply."
                 ) : (
                   <Tooltip title='Remove from watchlist'>
                     <IconButton>
-                      <StarIcon />
+                      <Star />
                     </IconButton>
                   </Tooltip>
                 )}
               </Box>
-              {/* <Box>
-                {' '}
-                {results.includes(coin.id) ? (
-                  <Tooltip title='Add to Watchlist '>
-                    <IconButton>
-                      {' '}
-                      <StarBorderIcon
-                        onClick={() => setWatchlist([...watchlist, coin.id])}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                ) : (
-                  <Tooltip title='Remove from watchlist'>
-                    <IconButton>
-                      {' '}
-                      <StarIcon
-                        onClick={() =>
-                          setWatchlist(
-                            results.filter(el => {
-                              return el !== coin.id
-                            })
-                          )
-                        }
-                      />
-                    </IconButton>
-                  </Tooltip>
-                )}
-              </Box> */}
-
-              {/* </Tooltip> */}
+             
             </TableCell>
             <TableCell
               component='th'
@@ -194,7 +157,7 @@ Market Cap = Current Price x Circulating Supply."
                     whiteSpace: 'nowrap'
                   }}
                 >
-                  <ArrowDropDownIcon sx={{ fill: 'red' }} />
+                  <ArrowDropDown sx={{ fill: 'red' }} />
                   {coin.price_change_24h?.toFixed(2)}%
                 </Typography>
               ) : (
@@ -207,7 +170,7 @@ Market Cap = Current Price x Circulating Supply."
                     whiteSpace: 'nowrap'
                   }}
                 >
-                  <ArrowDropUpIcon style={{ fill: 'green' }} />{' '}
+                  <ArrowDropUp style={{ fill: 'green' }} />{' '}
                   {coin.price_change_24h?.toFixed(2)}%
                 </Typography>
               )}

@@ -26,11 +26,9 @@ import {
   TableRow
 } from '@mui/material'
 import axios from 'axios'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded'
-import SentimentNeutralRoundedIcon from '@mui/icons-material/SentimentNeutralRounded'
-import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded'
+
+
+import { ArrowDropUp,ArrowDropDown,SentimentSatisfiedRounded ,SentimentNeutralRounded ,SentimentDissatisfiedRounded}  from '@mui/icons-material';
 import InfoIcon from '@mui/icons-material/Info'
 import LinkIcon from '@mui/icons-material/Link'
 import { SingleCoin, HistoricalChart, CryptoNews } from '../api/coinGecko'
@@ -182,11 +180,11 @@ function CoinDetails () {
                 sx={{ justifyContent: 'space-between', mx: '0.5vh' }}
               >
                 {colorTrustScore === 'green' ? (
-                  <SentimentSatisfiedRoundedIcon style={{ fill: 'green' }} />
+                  <SentimentSatisfiedRounded  style={{ fill: 'green' }} />
                 ) : colorTrustScore === 'yellow' ? (
-                  <SentimentNeutralRoundedIcon style={{ fill: 'yellow' }} />
+                  <SentimentNeutralRounded  style={{ fill: 'yellow' }} />
                 ) : (
-                  <SentimentDissatisfiedRoundedIcon style={{ fill: 'red' }} />
+                  <SentimentDissatisfiedRounded  style={{ fill: 'red' }} />
                 )}{' '}
                 <Typography>Trust score</Typography>
               </Box>
@@ -220,7 +218,7 @@ function CoinDetails () {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    <ArrowDropDownIcon sx={{ fill: 'white' }} />
+                    <ArrowDropDown sx={{ fill: 'white' }} />
                     {cryptData.market_data?.price_change_24h?.toFixed(2)}%
                   </Typography>
                 ) : (
@@ -233,7 +231,7 @@ function CoinDetails () {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    <ArrowDropUpIcon style={{ fill: 'white' }} />
+                    <ArrowDropUp style={{ fill: 'white' }} />
                     {cryptData.market_data?.price_change_24h?.toFixed(2)}%
                   </Typography>
                 )}
