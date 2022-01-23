@@ -27,13 +27,50 @@ import {
 } from '@mui/material'
 import axios from 'axios'
 
-
-import { ArrowDropUp,ArrowDropDown,SentimentSatisfiedRounded ,SentimentNeutralRounded ,SentimentDissatisfiedRounded}  from '@mui/icons-material';
+import {
+  ArrowDropUp,
+  ArrowDropDown,
+  SentimentSatisfiedRounded,
+  SentimentNeutralRounded,
+  SentimentDissatisfiedRounded
+} from '@mui/icons-material'
 import InfoIcon from '@mui/icons-material/Info'
 import LinkIcon from '@mui/icons-material/Link'
 import { SingleCoin, HistoricalChart, CryptoNews } from '../api/coinGecko'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles({
+  boxRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  boxColumn: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  boxeElevation: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    marginTop: '2vh',
+    margin: '1vw',
+    borderRadius: '8px'
+  },
+  ordinaryText: {
+    fontWeight: 600,
+    fontSize: '1vw'
+  }
+})
 
 function CoinDetails () {
+  const classes = useStyles()
   const { coinId } = useParams()
   const { coins } = useContext(StateContext)
   const [isLoading, setIsLoading] = useState(false)
@@ -130,14 +167,7 @@ function CoinDetails () {
           mr: '3vw'
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'row'
-          }}
-          className='data-container'
-        >
+        <Box className={classes.boxRow}>
           <Grid className='box-data' elevation={1} padding={2} sx={{}}>
             <Box
               display='flex'
@@ -145,57 +175,28 @@ function CoinDetails () {
               alignItems='center'
               sx={{ color: 'gray', justifyContent: 'space-between' }}
             >
-              <Box
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                sx={{ justifyContent: 'space-between', mx: '0.5vh' }}
-              >
-                <Typography
-                  sx={{ mx: '5px', fontWeight: '900', fontSize: '1vw' }}
-                >
+              <Box className={classes.boxRow}>
+                <Typography className={classes.ordinaryText}>
                   {cryptData.name}
                 </Typography>
-                <Typography
-                  sx={{ mx: '5px', fontWeight: '900', fontSize: '1vw' }}
-                >
-                  Price
-                </Typography>
-                <Typography
-                  sx={{
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                    fontWeight: '900',
-                    fontSize: '1vw'
-                  }}
-                >
+                <Typography className={classes.ordinaryText}>Price</Typography>
+                <Typography className={classes.ordinaryText}>
                   ({cryptData.symbol})
                 </Typography>
               </Box>
 
-              <Box
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                sx={{ justifyContent: 'space-between', mx: '0.5vh' }}
-              >
+              <Box className={classes.boxRow}>
                 {colorTrustScore === 'green' ? (
-                  <SentimentSatisfiedRounded  style={{ fill: 'green' }} />
+                  <SentimentSatisfiedRounded style={{ fill: 'green' }} />
                 ) : colorTrustScore === 'yellow' ? (
-                  <SentimentNeutralRounded  style={{ fill: 'yellow' }} />
+                  <SentimentNeutralRounded style={{ fill: 'yellow' }} />
                 ) : (
-                  <SentimentDissatisfiedRounded  style={{ fill: 'red' }} />
+                  <SentimentDissatisfiedRounded style={{ fill: 'red' }} />
                 )}{' '}
                 <Typography>Trust score</Typography>
               </Box>
             </Box>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              mt='1vh'
-              sx={{ justifyContent: 'space-between', mb: '0.5vh' }}
-            >
+            <Box className={classes.boxRow}>
               <Typography
                 sx={{ fontSize: '1.5vw', fontWeight: '700', mr: '0.5vw' }}
               >
@@ -237,13 +238,7 @@ function CoinDetails () {
                 )}
               </Typography>
             </Box>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              mt='2vh'
-              sx={{ justifyContent: 'space-between', mb: '0.5vh' }}
-            >
+            <Box className={classes.boxRow}>
               <Typography sx={{ color: 'red', fontWeight: '700' }}>
                 Low:{' '}
                 {cryptData.market_data?.low_24h?.usd.toLocaleString('en-US', {
@@ -262,10 +257,7 @@ function CoinDetails () {
           </Grid>
 
           <Grid elevation={1} className='box-data' padding={2}>
-            <Typography
-              align='center'
-              sx={{ fontWeight: '900', fontSize: '1vw', mb: '1vh' }}
-            >
+            <Typography align='center' className={classes.ordinaryText}>
               Converted value
             </Typography>
             <Box
@@ -274,27 +266,10 @@ function CoinDetails () {
               align='center'
               sx={{ justifyContent: 'space-between' }}
             >
-              <Grid
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                sx={{ justifyContent: 'space-between' }}
-              >
-                {' '}
-                {/* <Typography sx={{ fontWeight: '700' }}>
-                  {' '}
-                  {cryptData.market_data?.max_supply}
-                </Typography> */}
-              </Grid>
+              <Grid className={classes.boxRow}></Grid>
 
-              <Grid
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                mt='1vh'
-                sx={{ justifyContent: 'space-between' }}
-              >
-                <Typography sx={{ fontWeight: '900', fontSize: '1vw' }}>
+              <Grid className={classes.boxRow}>
+                <Typography className={classes.ordinaryText}>
                   {' '}
                   {cryptData?.tickers?.[0]?.converted_last?.btc}
                 </Typography>
@@ -309,14 +284,8 @@ function CoinDetails () {
                   BTC
                 </Typography>
               </Grid>
-              <Grid
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                mt='1vh'
-                sx={{ justifyContent: 'space-between' }}
-              >
-                <Typography sx={{ fontWeight: '900', fontSize: '1vw' }}>
+              <Grid className={classes.boxRow}>
+                <Typography className={classes.ordinaryText}>
                   {' '}
                   {cryptData?.tickers?.[0]?.converted_last?.eth}
                 </Typography>
@@ -331,14 +300,8 @@ function CoinDetails () {
                   ETH
                 </Typography>
               </Grid>
-              <Grid
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                mt='1vh'
-                sx={{ justifyContent: 'space-between' }}
-              >
-                <Typography sx={{ fontWeight: '900', fontSize: '1vw' }}>
+              <Grid className={classes.boxRow}>
+                <Typography className={classes.ordinaryText}>
                   {' '}
                   {cryptData?.tickers?.[0]?.converted_last?.usd}
                 </Typography>
@@ -354,12 +317,7 @@ function CoinDetails () {
                 </Typography>
               </Grid>
 
-              <Grid
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                sx={{ justifyContent: 'space-between' }}
-              >
+              <Grid className={classes.boxRow}>
                 {' '}
                 {/* <Typography sx={{ fontWeight: '700' }}>
                   {' '}
@@ -369,12 +327,7 @@ function CoinDetails () {
             </Box>
           </Grid>
           <Grid elevation={1} className='box-data' padding={2}>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between' }}
-            >
+            <Box className={classes.boxRow}>
               <Typography
                 sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
               >
@@ -411,12 +364,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 </Tooltip>
               </Typography>
             </Box>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between' }}
-            >
+            <Box className={classes.boxRow}>
               <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
                 {cryptData.market_data?.market_cap?.usd.toLocaleString(
                   'en-US',
@@ -436,12 +384,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 )}
               </Typography>
             </Box>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between', mb: '0.5vh' }}
-            >
+            <Box className={classes.boxRow}>
               <Typography
                 sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
               >
@@ -471,18 +414,8 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 </Tooltip>
               </Typography>
             </Box>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between' }}
-            >
-              <Box
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                sx={{ justifyContent: 'space-between' }}
-              >
+            <Box className={classes.boxRow}>
+              <Box className={classes.boxRow}>
                 <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
                   {cryptData.market_data?.total_volume?.usd.toLocaleString(
                     'en-US',
@@ -514,13 +447,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 )}
               </Typography>
             </Box>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              mt='0.5vh'
-              sx={{ justifyContent: 'space-between' }}
-            >
+            <Box className={classes.boxRow}>
               <Typography
                 sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
               >
@@ -556,18 +483,8 @@ If this data has not been submitted by the project or verified by the CMC team, 
                 </Tooltip>
               </Typography>
             </Box>
-            <Box
-              display='flex'
-              flexDirection='row'
-              alignItems='center'
-              sx={{ justifyContent: 'space-between' }}
-            >
-              <Box
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                sx={{ justifyContent: 'space-between' }}
-              >
+            <Box className={classes.boxRow}>
+              <Box className={classes.boxRow}>
                 <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
                   {cryptData.market_data?.max_supply}
                 </Typography>
@@ -580,14 +497,12 @@ If this data has not been submitted by the project or verified by the CMC team, 
           </Grid>
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center'
-          }}
-          align='center'
-        >
-          <Paper sx={{backgroundColor:"white"}} elevation={1} className='chart-box'>
+        <Box className={classes.boxRow}>
+          <Paper
+            sx={{ backgroundColor: 'white' }}
+            elevation={1}
+            className='chart-box'
+          >
             <Button className='btn-days' onClick={e => setDaysAgo('24h')}>
               1D
             </Button>
@@ -605,25 +520,8 @@ If this data has not been submitted by the project or verified by the CMC team, 
         </Box>
       </Box>
 
-      <Box
-        elevation={1}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          backgroundColor: 'white',
-          mt: '2vh',
-          mx: '1vw',
-          borderRadius: '8px'
-        }}
-      >
-        <Box
-          display='flex'
-          flexDirection='row'
-          alignItems='center'
-          justifyContent='center'
-        >
+      <Box className={classes.boxeElevation}>
+        <Box className={classes.boxRow}>
           <img
             sx={{ width: '1vw', margin: 'auto' }}
             src={cryptData?.image?.small}
@@ -660,7 +558,7 @@ If this data has not been submitted by the project or verified by the CMC team, 
             }}
           />
         </Box>
-        <Box display='flex' flexDirection='row' alignItems='center'>
+        <Box className={classes.boxRow}>
           <Typography
             align='center'
             sx={{
@@ -685,12 +583,7 @@ If this data has not been submitted by the project or verified by the CMC team, 
               .replace(/<\/a>/i, '')}
             `
           </Typography>
-          <Box
-            display='flex'
-            flexDirection='row'
-            alignItems='center'
-            justifyContent='space-evenly'
-          >
+          <Box className={classes.boxRow}>
             <a
               href={cryptData?.links?.homepage[0]}
               target='_blank'
@@ -717,19 +610,7 @@ If this data has not been submitted by the project or verified by the CMC team, 
         </a>
       </Box>
 
-      <Box
-        elevation={1}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          backgroundColor: 'white',
-          mt: '2vh',
-          mx: '1vw',
-          borderRadius: '8px'
-        }}
-      >
+      <Box className={classes.boxeElevation}>
         <Grid>
           {/* <img src={cryptoNews.articles?.[0]?.urlToImage} alt="vaa"/> */}
           {cryptoNews.articles?.slice(0, 3).map(article => (

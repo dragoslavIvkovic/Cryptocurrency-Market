@@ -31,14 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const darkTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#fff'
-    },
-    type: 'dark'
-  }
-})
+
 
 export default function Navbar () {
   const classes = useStyles()

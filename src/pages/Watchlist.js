@@ -14,19 +14,17 @@ import {
 import '../_styles/Coin.scss'
 import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '../context/GlobalState'
-import { StarBorder ,Info,ArrowDropUp,ArrowDropDown,Search,Star } from '@mui/icons-material';
-
+import {
+  StarBorder,
+  Info,
+  ArrowDropUp,
+  ArrowDropDown,
+  Search,
+  Star
+} from '@mui/icons-material'
 
 export default function Watchlist () {
-  const { coins, watchlist, setWatchlist } = useContext(StateContext);
- 
-
-
-
-
-
-
-
+  const { coins, watchlist, setWatchlist } = useContext(StateContext)
 
   const results = coins.filter(item => watchlist?.includes(item.id))
 
@@ -113,7 +111,6 @@ Market Cap = Current Price x Circulating Supply."
                   </Tooltip>
                 )}
               </Box>
-             
             </TableCell>
             <TableCell
               component='th'

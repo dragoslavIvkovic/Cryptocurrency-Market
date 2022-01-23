@@ -43,8 +43,9 @@ function StateProvider ({ children }) {
     })
   }, [])
 
+  console.log(watchlist)
 
-  console.log("user" ,user)
+  console.log('user', user)
 
   const getCoinData = async () => {
     await axios

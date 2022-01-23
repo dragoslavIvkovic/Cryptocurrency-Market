@@ -1,125 +1,125 @@
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import { Button, Tab, Tabs, AppBar, Box } from "@material-ui/core";
-import Signup from "./Signup";
-import Login from "./Login";
-import { useContext, useState } from "react";
-import { StateContext } from "../../context/GlobalState";
-import { auth } from "../../firebase";
-import GoogleButton from "react-google-button";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { makeStyles } from '@material-ui/core/styles'
+import Modal from '@material-ui/core/Modal'
+import Backdrop from '@material-ui/core/Backdrop'
+import Fade from '@material-ui/core/Fade'
+import { Button, Tab, Tabs, AppBar, Box } from '@material-ui/core'
+import Signup from './Signup'
+import Login from './Login'
+import { useContext, useState } from 'react'
+import { StateContext } from '../../context/GlobalState'
+import { auth } from '../../firebase'
+import GoogleButton from 'react-google-button'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   paper: {
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    color: "white",
-    borderRadius: 10,
+    color: 'white',
+    borderRadius: 10
   },
   google: {
     padding: 24,
     paddingTop: 0,
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
     gap: 20,
-    fontSize: 20,
-  },
-}));
+    fontSize: 20
+  }
+}))
 
-export default function AuthModal() {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+export default function AuthModal () {
+  const classes = useStyles()
+  const [open, setOpen] = useState(false)
 
-  const { setAlert } = useContext(StateContext);
+  const { setAlert } = useContext(StateContext)
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0)
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
-  const googleProvider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider()
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
-      .then((res) => {
+      .then(res => {
         setAlert({
           open: true,
           message: `Sign Up Successful. Welcome ${res.user.email}`,
-          type: "success",
-        });
+          type: 'success'
+        })
 
-        handleClose();
+        handleClose()
       })
-      .catch((error) => {
+      .catch(error => {
         setAlert({
           open: true,
           message: error.message,
-          type: "error",
-        });
-        return;
-      });
-  };
+          type: 'error'
+        })
+        return
+      })
+  }
 
   return (
     <div>
       <Button
-        variant="contained"
+        variant='contained'
         style={{
           width: 85,
           height: 40,
           marginLeft: 15,
-          backgroundColor: "#EEBC1D",
+          backgroundColor: '#EEBC1D'
         }}
         onClick={handleOpen}
       >
         Login
       </Button>
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
+        aria-labelledby='transition-modal-title'
+        aria-describedby='transition-modal-description'
         className={classes.modal}
         open={open}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500,
+          timeout: 500
         }}
       >
         <Fade in={open}>
           <div className={classes.paper}>
             <AppBar
-              position="static"
+              position='static'
               style={{
-                backgroundColor: "transparent",
-                color: "white",
+                backgroundColor: 'transparent',
+                color: 'white'
               }}
             >
               <Tabs
                 value={value}
                 onChange={handleChange}
-                variant="fullWidth"
+                variant='fullWidth'
                 style={{ borderRadius: 10 }}
               >
-                <Tab label="Login" />
-                <Tab label="Sign Up" />
+                <Tab label='Login' />
+                <Tab label='Sign Up' />
               </Tabs>
             </AppBar>
             {value === 0 && <Login handleClose={handleClose} />}
@@ -127,7 +127,7 @@ export default function AuthModal() {
             <Box className={classes.google}>
               <span>OR</span>
               <GoogleButton
-                style={{ width: "100%", outline: "none" }}
+                style={{ width: '100%', outline: 'none' }}
                 onClick={signInWithGoogle}
               />
             </Box>
@@ -135,5 +135,5 @@ export default function AuthModal() {
         </Fade>
       </Modal>
     </div>
-  );
+  )
 }
