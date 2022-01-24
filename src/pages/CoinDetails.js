@@ -23,7 +23,8 @@ import {
   CardHeader,
   BorderLinearProgress,
   Tooltip,
-  TableRow
+  TableRow,
+  IconButton
 } from '@mui/material'
 import axios from 'axios'
 
@@ -32,12 +33,16 @@ import {
   ArrowDropDown,
   SentimentSatisfiedRounded,
   SentimentNeutralRounded,
-  SentimentDissatisfiedRounded
+  SentimentDissatisfiedRounded,
+  Star
 } from '@mui/icons-material'
 import InfoIcon from '@mui/icons-material/Info'
 import LinkIcon from '@mui/icons-material/Link'
 import { SingleCoin, HistoricalChart, CryptoNews } from '../api/coinGecko'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import StarBorder from '@mui/icons-material/StarBorder'
 
 const useStyles = makeStyles({
   boxRow: {
@@ -72,7 +77,7 @@ const useStyles = makeStyles({
 function CoinDetails () {
   const classes = useStyles()
   const { coinId } = useParams()
-  const { coins } = useContext(StateContext)
+  const { coins, watchlist, setWatchlist, user, setAlert,  } = useContext(StateContext)
   const [isLoading, setIsLoading] = useState(false)
   const [marketChart, setMarketChart] = useState({})
   const [dayAgo, setDaysAgo] = useState('24h')
@@ -80,7 +85,8 @@ function CoinDetails () {
   const [cryptoNews, setCryptNews] = useState({})
   // const [cryptoSymbol, setCryptoSymbol] = useState()
 
-  const thisCoin = coins.filter(coin => coin.coinId === coinId)
+  const thisCoin = coins.filter(coin => coin.coinId === coinId);
+  console.log("cryptData" ,cryptData)
 
   let dates = [...Array(dayAgo)].map((_, i) => {
     const d = new Date()
@@ -154,6 +160,54 @@ function CoinDetails () {
       }
     ]
   }
+
+
+   const addToWatchlist = async (cryptData) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist ? [...watchlist, cryptData?.id] : [cryptData?.id] },
+        { merge: true }
+      );
+
+      setAlert({
+        open: true,
+        message: `${cryptData.name} Added to the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
+
+  const removeFromWatchlist = async (cryptData) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist.filter((wish) => wish !== cryptData?.id) },
+        { merge: true }
+      );
+
+      setAlert({
+        open: true,
+        message: `${cryptData.name} Removed from the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
 
   return (
     <Box>
@@ -549,14 +603,28 @@ If this data has not been submitted by the project or verified by the CMC team, 
             {cryptData.symbol}
           </Typography>
 
-          <StarBorderIcon
-            sx={{
-              border: '1px solid #d3d3d3',
-              borderRadius: '8px',
-              padding: '2px',
-              fontSize: '2vw'
-            }}
-          />
+           {
+                   user && (watchlist.indexOf(cryptData.id) === -1 ? (
+                    <Tooltip title='Add to Watchlist '>
+                      <IconButton>
+                        <StarBorder
+                          onClick={() => addToWatchlist(cryptData)}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title='Remove from watchlist'>
+                      <IconButton>
+                        <Star
+                          onClick={() =>
+                           removeFromWatchlist(cryptData)}
+                             
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  ))
+                  
+                  }
         </Box>
         <Box className={classes.boxRow}>
           <Typography

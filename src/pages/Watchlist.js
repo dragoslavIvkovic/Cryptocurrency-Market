@@ -32,6 +32,7 @@ export default function Watchlist () {
 
     const addToWatchlist = async (row) => {
     const coinRef = doc(db, "watchlist", user.uid);
+  
     try {
       await setDoc(
         coinRef,
