@@ -32,11 +32,13 @@ import {
   ArrowDropDown,
   Search,
   Star
-} from '@mui/icons-material'
+} from '@mui/icons-material';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 function Coins () {
   const [search, setSearch] = useState('')
-  const { coins, watchlist, setWatchlist } = useContext(StateContext)
+  const { coins, watchlist, setWatchlist, user, setAlert, } = useContext(StateContext)
 
   const filteredCoins = coins.filter(
     coin =>
@@ -48,6 +50,55 @@ function Coins () {
   const handleChange = e => {
     setSearch(e.target.value)
   }
+
+
+
+
+  const addToWatchlist = async (row) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist ? [...watchlist, row?.id] : [row?.id] },
+        { merge: true }
+      );
+
+      setAlert({
+        open: true,
+        message: `${row.name} Added to the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
+
+  const removeFromWatchlist = async (row) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist.filter((wish) => wish !== row?.id) },
+        { merge: true }
+      );
+
+      setAlert({
+        open: true,
+        message: `${row.name} Removed from the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
 
   return (
     <Container sx={{ width: '80vw', marginTop: '5rem' }} className=''>
@@ -84,7 +135,7 @@ function Coins () {
           <TableHead>
             <TableRow>
               <TableCell>
-                <Tooltip title='Add to watchlist'>
+                <Tooltip title='Login to add w'>
                   <StarBorder />
                 </Tooltip>
               </TableCell>
@@ -141,11 +192,12 @@ Market Cap = Current Price x Circulating Supply."
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align='left' component='th' scope='row'>
-                  {watchlist.indexOf(row.id) === -1 ? (
+                 {
+                   user && (watchlist.indexOf(row.id) === -1 ? (
                     <Tooltip title='Add to Watchlist '>
                       <IconButton>
                         <StarBorder
-                          onClick={() => setWatchlist([...watchlist, row.id])}
+                          onClick={() => addToWatchlist(row)}
                         />
                       </IconButton>
                     </Tooltip>
@@ -154,16 +206,15 @@ Market Cap = Current Price x Circulating Supply."
                       <IconButton>
                         <Star
                           onClick={() =>
-                            setWatchlist(
-                              watchlist.filter(el => {
-                                return el !== row.id
-                              })
-                            )
-                          }
+                           removeFromWatchlist(row)}
+                             
                         />
                       </IconButton>
                     </Tooltip>
-                  )}
+                  ))
+                  
+                  }
+                 
                 </TableCell>
                 <TableCell
                   component='th'

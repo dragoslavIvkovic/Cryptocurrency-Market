@@ -21,12 +21,60 @@ import {
   ArrowDropDown,
   Search,
   Star
-} from '@mui/icons-material'
+} from '@mui/icons-material';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Watchlist () {
-  const { coins, watchlist, setWatchlist } = useContext(StateContext)
+  const { coins, watchlist, setWatchlist,user, setAlert, } = useContext(StateContext)
 
   const results = coins.filter(item => watchlist?.includes(item.id))
+
+    const addToWatchlist = async (row) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist ? [...watchlist, row?.id] : [row?.id] },
+        { merge: true }
+      );
+
+      setAlert({
+        open: true,
+        message: `${row.name} Added to the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
+
+  const removeFromWatchlist = async (row) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist.filter((wish) => wish !== row?.id) },
+        { merge: true }
+      );
+
+      setAlert({
+        open: true,
+        message: `${row.name} Removed from the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
 
   return (
     <Paper elevation={3} sx={{ overflow: 'hidden' }}>
@@ -79,37 +127,33 @@ Market Cap = Current Price x Circulating Supply."
             </TableCell>
           </TableRow>
         </TableHead>
-        {results.map(coin => (
+        {results.map(row => (
           <TableRow
             className='table-coin'
-            key={coin.id}
+            key={row.id}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell align='left'>
               <Box>
-                {' '}
-                {watchlist.includes(coin.id) ? (
-                  <Tooltip title='Remove from watchlist'>
-                    <IconButton>
-                      {' '}
-                      <Star
-                        onClick={() =>
-                          setWatchlist(
-                            watchlist.filter(el => {
-                              return el !== coin.id
-                            })
-                          )
-                        }
-                      />
-                    </IconButton>
-                  </Tooltip>
-                ) : (
-                  <Tooltip title='Remove from watchlist'>
-                    <IconButton>
-                      <Star />
-                    </IconButton>
-                  </Tooltip>
-                )}
+                 {user && (watchlist.indexOf(row.id) === -1 ? (
+                    <Tooltip title='Add to Watchlist '>
+                      <IconButton>
+                        <StarBorder
+                          onClick={() => addToWatchlist(row)}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title='Remove from watchlist'>
+                      <IconButton>
+                        <Star
+                          onClick={() =>
+                           removeFromWatchlist(row)}
+                             
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  ))}
               </Box>
             </TableCell>
             <TableCell
@@ -119,7 +163,7 @@ Market Cap = Current Price x Circulating Supply."
               style={{ display: 'flex', alignItems: 'center' }}
             >
               <img
-                src={coin.image}
+                src={row.image}
                 alt='alt'
                 style={{
                   width: '30px',
@@ -127,24 +171,24 @@ Market Cap = Current Price x Circulating Supply."
                 }}
               />
               <Typography mx={1} className='coin_name'>
-                {coin.name}
+                {row.name}
               </Typography>
-              <Typography className='coin_symbol'>{coin.symbol}</Typography>
-              <Link mx={1} className='link__details' to={`/coin/${coin.id}`}>
+              <Typography className='coin_symbol'>{row.symbol}</Typography>
+              <Link mx={1} className='link__details' to={`/coin/${row.id}`}>
                 <Button className='btn-buy__coin'>Buy</Button>
               </Link>
             </TableCell>
             {/* <TableCell align='left'>{coin.symbol}</TableCell> */}
             <TableCell align='left'>
               <Typography className='coin_price' style={{ fontWeight: 700 }}>
-                {coin.current_price.toLocaleString('en-US', {
+                {row.current_price.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD'
                 })}
               </Typography>
             </TableCell>
             <TableCell align='left'>
-              {coin.price_change_24h < 0 ? (
+              {row.price_change_24h < 0 ? (
                 <Typography
                   style={{
                     color: 'red',
@@ -155,7 +199,7 @@ Market Cap = Current Price x Circulating Supply."
                   }}
                 >
                   <ArrowDropDown sx={{ fill: 'red' }} />
-                  {coin.price_change_24h?.toFixed(2)}%
+                  {row.price_change_24h?.toFixed(2)}%
                 </Typography>
               ) : (
                 <Typography
@@ -168,22 +212,22 @@ Market Cap = Current Price x Circulating Supply."
                   }}
                 >
                   <ArrowDropUp style={{ fill: 'green' }} />{' '}
-                  {coin.price_change_24h?.toFixed(2)}%
+                  {row.price_change_24h?.toFixed(2)}%
                 </Typography>
               )}
             </TableCell>
-            <TableCell align='left'> {coin.market_cap}</TableCell>
-            <TableCell align='left'> {coin.total_volume}</TableCell>
+            <TableCell align='left'> {row.market_cap}</TableCell>
+            <TableCell align='left'> {row.total_volume}</TableCell>
             <TableCell align='left' className='circulating_supply'>
               <Typography
                 style={{ fontWeight: 700, marginRight: '10px' }}
                 className='coin-circulating_supply'
               >
-                {coin.circulating_supply}
+                {row.circulating_supply}
               </Typography>
 
               <Typography style={{ fontWeight: 700 }} className='coin-symbol'>
-                {coin.symbol}
+                {row.symbol}
               </Typography>
             </TableCell>
           </TableRow>
