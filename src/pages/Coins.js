@@ -32,13 +32,15 @@ import {
   ArrowDropDown,
   Search,
   Star
-} from '@mui/icons-material';
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase";
+} from '@mui/icons-material'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../firebase'
 
 function Coins () {
   const [search, setSearch] = useState('')
-  const { coins, watchlist, setWatchlist, user, setAlert, } = useContext(StateContext)
+  const { coins, watchlist, setWatchlist, user, setAlert } = useContext(
+    StateContext
+  )
 
   const filteredCoins = coins.filter(
     coin =>
@@ -51,55 +53,52 @@ function Coins () {
     setSearch(e.target.value)
   }
 
+  const addToWatchlist = async row => {
+    const coinRef = doc(db, 'watchlist', user.uid)
 
-
-
-  const addToWatchlist = async (row) => {
-    const coinRef = doc(db, "watchlist", user.uid);
-    
     try {
       await setDoc(
         coinRef,
         { coins: watchlist ? [...watchlist, row?.id] : [row?.id] },
         { merge: true }
-      );
+      )
 
       setAlert({
         open: true,
         message: `${row.name} Added to the Watchlist !`,
-        type: "success",
-      });
+        type: 'success'
+      })
     } catch (error) {
       setAlert({
         open: true,
         message: error.message,
-        type: "error",
-      });
+        type: 'error'
+      })
     }
-  };
+  }
 
-  const removeFromWatchlist = async (row) => {
-    const coinRef = doc(db, "watchlist", user.uid);
+  const removeFromWatchlist = async row => {
+    const coinRef = doc(db, 'watchlist', user.uid)
     try {
       await setDoc(
         coinRef,
-        { coins: watchlist.filter((wish) => wish !== row?.id) },
+        { coins: watchlist.filter(wish => wish !== row?.id) },
         { merge: true }
-      );
+      )
 
       setAlert({
         open: true,
         message: `${row.name} Removed from the Watchlist !`,
-        type: "success",
-      });
+        type: 'success'
+      })
     } catch (error) {
       setAlert({
         open: true,
         message: error.message,
-        type: "error",
-      });
+        type: 'error'
+      })
     }
-  };
+  }
 
   return (
     <Container sx={{ width: '80vw', marginTop: '5rem' }} className=''>
@@ -137,7 +136,7 @@ function Coins () {
             <TableRow>
               <TableCell>
                 <Tooltip title='Login to add w'>
-                  <StarBorder />
+                  <StarBorder sx={{ ml: '10px' }} />
                 </Tooltip>
               </TableCell>
               <TableCell align='left'>Name</TableCell>
@@ -193,29 +192,20 @@ Market Cap = Current Price x Circulating Supply."
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align='left' component='th' scope='row'>
-                 {
-                   user && (watchlist.indexOf(row.id) === -1 ? (
-                    <Tooltip title='Add to Watchlist '>
-                      <IconButton>
-                        <StarBorder
-                          onClick={() => addToWatchlist(row)}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip title='Remove from watchlist'>
-                      <IconButton>
-                        <Star
-                          onClick={() =>
-                           removeFromWatchlist(row)}
-                             
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  ))
-                  
-                  }
-                 
+                  {user &&
+                    (watchlist.indexOf(row.id) === -1 ? (
+                      <Tooltip title='Add to Watchlist '>
+                        <IconButton>
+                          <StarBorder onClick={() => addToWatchlist(row)} />
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title='Remove from watchlist'>
+                        <IconButton>
+                          <Star onClick={() => removeFromWatchlist(row)} />
+                        </IconButton>
+                      </Tooltip>
+                    ))}
                 </TableCell>
                 <TableCell
                   component='th'
@@ -255,27 +245,29 @@ Market Cap = Current Price x Circulating Supply."
                   {row.price_change_24h < 0 ? (
                     <Typography
                       style={{
-                        color: 'red',
-                        backgroundColor: '#FCE8E6',
+                        color: 'white',
+                        backgroundColor: '#F40D30',
                         borderRadius: '8px',
-                        padding: '3px',
-                        whiteSpace: 'nowrap'
+                        padding: '5px 10px 5px 10px',
+                        whiteSpace: 'nowrap',
+                        fontWeight: '600'
                       }}
                     >
-                      <ArrowDropDown sx={{ fill: 'red' }} />
+                      <ArrowDropDown sx={{ fill: 'white' }} />
                       {row.price_change_24h?.toFixed(2)}%
                     </Typography>
                   ) : (
                     <Typography
                       style={{
-                        color: 'green',
-                        backgroundColor: '#E6F4EA',
+                        color: 'white',
+                        backgroundColor: '#16C784',
                         borderRadius: '8px',
-                        padding: '3px',
-                        whiteSpace: 'nowrap'
+                        padding: '5px 10px 5px 10px',
+                        whiteSpace: 'nowrap',
+                        fontWeight: '600'
                       }}
                     >
-                      <ArrowDropUp style={{ fill: 'green' }} />{' '}
+                      <ArrowDropUp style={{ fill: 'white' }} />{' '}
                       {row.price_change_24h?.toFixed(2)}%
                     </Typography>
                   )}
