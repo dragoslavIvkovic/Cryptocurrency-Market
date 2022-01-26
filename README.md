@@ -10,6 +10,10 @@ Tasks:
 9. ✔️ Crypto news
 10. filter coin high to low
 11. Loading 
+12. Style navbar 
+
+
+Appearance at the present stage. It's not over yet.
 
 
  
