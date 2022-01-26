@@ -34,7 +34,15 @@ import {
   Star
 } from '@mui/icons-material'
 import { doc, setDoc } from 'firebase/firestore'
-import { db } from '../firebase'
+import { db } from '../firebase';
+import { styled } from '@mui/material/styles'
+
+
+
+const InfoIconGray = styled(Info)(({ theme }) => ({
+  ...theme.typography.body2,
+  fill: 'gray'
+}))
 
 function Coins () {
   const [search, setSearch] = useState('')
@@ -145,13 +153,7 @@ function Coins () {
               <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
                 Total Volume
                 <Tooltip title='A measure of how much of a cryptocurrency was traded in the last 24 hours.'>
-                  <Info
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-
-                      verticalAlign: 'middle'
-                    }}
+                  <InfoIconGray
                   />
                 </Tooltip>
               </TableCell>
@@ -161,24 +163,14 @@ function Coins () {
                   title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
 Market Cap = Current Price x Circulating Supply."
                 >
-                  <Info
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
+                  <InfoIconGray
                   />
                 </Tooltip>
               </TableCell>
               <TableCell align='left'>
                 Circulating Supply
                 <Tooltip title='The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.'>
-                  <Info
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
+                  <InfoIconGray
                   />
                 </Tooltip>
               </TableCell>
