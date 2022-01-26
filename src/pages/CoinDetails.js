@@ -477,16 +477,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                     }
                   )}
                 </TypographyNormal>
-                <Typography
-                  sx={{
-                    ml: '0.5vw',
-                    backgroundColor: 'gray',
-                    borderRadius: '80x',
-                    padding: '1px'
-                  }}
-                >
-                  24
-                </Typography>
+               
               </StackItem>
 
               <TypographyNormal>

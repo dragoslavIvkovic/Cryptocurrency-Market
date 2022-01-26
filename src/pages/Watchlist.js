@@ -214,12 +214,12 @@ Market Cap = Current Price x Circulating Supply."
               <TableCell>
                 {row.price_change_percentage_1h_in_currency < 0 ? (
                   <TypoChangeRed>
-                    <ArrowDropDown sx={{ fill: 'white' }} />
+                    <ArrowDropDown sx={{ fill: 'red' }} />
                     {row.price_change_percentage_1h_in_currency?.toFixed(2)}%
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />
+                    <ArrowDropUp style={{ fill: 'green' }} />
                     {row.price_change_percentage_1h_in_currency?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -227,12 +227,12 @@ Market Cap = Current Price x Circulating Supply."
               <TableCell>
                 {row.price_change_percentage_24h_in_currency < 0 ? (
                   <TypoChangeRed>
-                    <ArrowDropDown sx={{ fill: 'white' }} />
+                    <ArrowDropDown sx={{ fill: 'red' }} />
                     {row.price_change_percentage_24h_in_currency?.toFixed(2)}%
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />
+                    <ArrowDropUp style={{ fill: 'green' }} />
                     {row.price_change_percentage_24h_in_currency?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -240,12 +240,12 @@ Market Cap = Current Price x Circulating Supply."
               <TableCell>
                 {row.price_change_percentage_7d_in_currency < 0 ? (
                   <TypoChangeRed>
-                    <ArrowDropDown sx={{ fill: 'white' }} />
+                    <ArrowDropDown sx={{ fill: 'red' }} />
                     {row.price_change_percentage_7d_in_currency?.toFixed(2)}%
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />
+                    <ArrowDropUp style={{ fill: 'green' }} />
                     {row.price_change_percentage_7d_in_currency?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -253,12 +253,12 @@ Market Cap = Current Price x Circulating Supply."
               <TableCell>
                 {row.high_24h < 0 ? (
                   <TypoChangeRed>
-                    <ArrowDropDown sx={{ fill: 'white' }} />
+                    <ArrowDropDown sx={{ fill: 'red' }} />
                     {row.high_24h?.toFixed(2)}%
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />
+                    <ArrowDropUp style={{ fill: 'green' }} />
                     {row.high_24h?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -266,12 +266,12 @@ Market Cap = Current Price x Circulating Supply."
               <TableCell>
                 {row.low_24h < 0 ? (
                   <TypoChangeRed>
-                    <ArrowDropDown sx={{ fill: 'white' }} />
+                    <ArrowDropDown sx={{ fill: 'red' }} />
                     {row.low_24h?.toFixed(2)}%
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />
+                    <ArrowDropUp style={{ fill: 'green' }} />
                     {row.low_24h?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
