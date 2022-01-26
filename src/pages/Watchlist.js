@@ -1,10 +1,9 @@
 import {
   Box,
   Button,
-  Divider,
-  Grid,
+
   IconButton,
-  Link,
+
   Paper,
   Table,
   TableBody,
@@ -28,6 +27,7 @@ import {
 } from '@mui/icons-material'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
+import { Link } from 'react-router-dom'
 
 import { styled } from '@mui/material/styles'
 
@@ -113,12 +113,13 @@ export default function Watchlist () {
   }))
 
   return (
-    <TableContainer elevation={3} component={Paper} sx={{ marginTop: '5vh' }}>
-      <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+    <TableContainer elevation={3} component={Paper} 
+    sx={{ alignItems: 'center',  marginTop:"5vh"}} >
+      <Table sx={{ minWidth: 650 }} aria-label='simple table' >
         <TableHead>
           <TableRow>
             <TableCell>
-              <Tooltip title='Login to add w'>
+              <Tooltip >
                 <StarBorder sx={{ ml: '10px' }} />
               </Tooltip>
             </TableCell>

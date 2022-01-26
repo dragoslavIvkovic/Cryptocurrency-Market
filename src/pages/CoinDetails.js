@@ -104,6 +104,20 @@ const DataBox = styled(Grid)(({ theme }) => ({
   padding:"1rem",
   m:"1rem"
 }))
+const Btn = styled(Button)(({ theme }) => ({
+  ...theme.typography.body2,
+    fontWeight: "bold",
+  fontSize: "1em",
+   ':hover': {
+    color: "white",
+    backgroundColor: 'red',
+  },
+  ":focus" : {
+     color: "white",
+    backgroundColor: 'red',
+  }
+  
+}))
 
 
 
@@ -529,18 +543,18 @@ If this data has not been submitted by the project or verified by the CMC team, 
             elevation={1}
             className='chart-box'
           >
-            <Button className='btn-days' onClick={e => setDaysAgo('24h')}>
+            <Btn className='btn-days' onClick={e => setDaysAgo('24h')}>
               1D
-            </Button>
-            <Button className='btn-days' onClick={e => setDaysAgo(7)}>
+            </Btn>
+            <Btn className='btn-days' onClick={e => setDaysAgo(7)}>
               7D
-            </Button>
-            <Button className='btn-days' onClick={e => setDaysAgo(14)}>
+            </Btn>
+            <Btn className='btn-days' onClick={e => setDaysAgo(14)}>
               14D
-            </Button>
-            <Button onClick={e => setDaysAgo(30)}>1M</Button>
-            <Button onClick={e => setDaysAgo(60)}>2M</Button>
-            <Button onClick={e => setDaysAgo(90)}>3M</Button>
+            </Btn>
+            <Btn onClick={e => setDaysAgo(30)}>1M</Btn>
+            <Btn onClick={e => setDaysAgo(60)}>2M</Btn>
+            <Btn onClick={e => setDaysAgo(90)}>3M</Btn>
             <Line data={data} className='chart-data' />
           </Paper>
         </StackItem>
@@ -607,13 +621,13 @@ If this data has not been submitted by the project or verified by the CMC team, 
         </StackItem>
 
         <CardContent>
-          <Typography variant='body2' color='text.secondary'>
+          {/* <Typography variant='body2' color='text.secondary'>
             `
             {cryptData?.description?.en
               .substring(0, 300).
              replace( /(<([^>]+)>)/ig, '')}
             `
-          </Typography>
+          </Typography> */}
           <StackItem >
             <a
               href={cryptData?.links?.homepage[0]}
@@ -668,10 +682,10 @@ If this data has not been submitted by the project or verified by the CMC team, 
                  
                 />
              
-                  <Typography ml={2}>
+                  {/* <Typography ml={2}>
                     {article?.description.substring(0, 200).
               replace( /(<([^>]+)>)/ig, '')}
-                  </Typography>
+                  </Typography> */}
               
               </StackItem>
 

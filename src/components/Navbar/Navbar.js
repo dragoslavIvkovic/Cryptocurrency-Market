@@ -21,20 +21,12 @@ import { StateContext } from '../../context/GlobalState'
 import AuthModal from '../Auth/AuthModal'
 import { auth, db } from '../../firebase'
 
-const useStyles = makeStyles(theme => ({
-  title: {
-    flex: 1,
-    color: 'gold',
-    fontFamily: 'Montserrat',
-    fontWeight: 'bold',
-    cursor: 'pointer'
-  }
-}))
+
 
 
 
 export default function Navbar () {
-  const classes = useStyles()
+ 
   const { user, setAlert } = useContext(StateContext)
  
   const logOut = () => {
@@ -47,8 +39,7 @@ export default function Navbar () {
   }
 
   return (
-    <nav>
-      <Box
+    <nav
         sx={{
           mx: '50px',
           mt: '10px',
@@ -57,17 +48,14 @@ export default function Navbar () {
         }}
       >
         <Link className='navbar-link' to='/'>
-          Home
+         <Button>Home</Button> 
         </Link>
 
-        <Link className='navbar-link' style={{ float: 'right' }} to='watchlist'>
-          Watchlist
-        </Link>
+        
         <Grid className='navbar-link' style={{ float: 'right' }}>
           {user ? (
             <Button
-              variant='contained'
-              className={classes.logout}
+           
               onClick={logOut}
             >
               Log Out
@@ -76,7 +64,10 @@ export default function Navbar () {
             <AuthModal />
           )}
         </Grid>
-      </Box>
+        <Link className='navbar-link' style={{ float: 'right' }} to='watchlist'>
+        <Button>Watchlist</Button>  
+        </Link>
+     
     </nav>
   )
 }

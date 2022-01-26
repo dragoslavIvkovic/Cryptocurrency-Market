@@ -34,10 +34,8 @@ import {
   Star
 } from '@mui/icons-material'
 import { doc, setDoc } from 'firebase/firestore'
-import { db } from '../firebase';
+import { db } from '../firebase'
 import { styled } from '@mui/material/styles'
-
-
 
 const InfoIconGray = styled(Info)(({ theme }) => ({
   ...theme.typography.body2,
@@ -143,7 +141,7 @@ function Coins () {
           <TableHead>
             <TableRow>
               <TableCell>
-                <Tooltip title='Login to add w'>
+                <Tooltip title='Login to add watchlist'>
                   <StarBorder sx={{ ml: '10px' }} />
                 </Tooltip>
               </TableCell>
@@ -153,25 +151,23 @@ function Coins () {
               <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
                 Total Volume
                 <Tooltip title='A measure of how much of a cryptocurrency was traded in the last 24 hours.'>
-                  <InfoIconGray
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </TableCell>
               <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
                 Market Cap
                 <Tooltip
-                  title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
-Market Cap = Current Price x Circulating Supply."
+                  title="The total market value of a cryptocurrency's circulating supply.
+                   It is analogous to the free-float capitalization in the stock market.
+                   Market Cap = Current Price x Circulating Supply."
                 >
-                  <InfoIconGray
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </TableCell>
               <TableCell align='left'>
                 Circulating Supply
                 <Tooltip title='The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.'>
-                  <InfoIconGray
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </TableCell>
             </TableRow>
@@ -209,8 +205,8 @@ Market Cap = Current Price x Circulating Supply."
                     src={row.image}
                     alt='alt'
                     style={{
-                      width: '40px',
-                      height: '40px'
+                      width: '50px',
+                      height: '50px'
                     }}
                   />
                   <Typography mx={1} className='coin_name'>
@@ -221,7 +217,6 @@ Market Cap = Current Price x Circulating Supply."
                     <Button className='btn-buy__coin'>Buy</Button>
                   </Link>
                 </TableCell>
-
                 <TableCell align='left'>
                   <Typography
                     className='coin_price'
@@ -264,18 +259,27 @@ Market Cap = Current Price x Circulating Supply."
                     </Typography>
                   )}
                 </TableCell>
-                <TableCell align='left'> {row.market_cap}</TableCell>
-                <TableCell align='left'> {row.total_volume}</TableCell>
+              
+                <TableCell align='left'>
+                  <Typography sx={{ fontWeight: '600' }}>
+                    {row.total_volume}
+                  </Typography>{' '}
+                </TableCell>
+                  <TableCell align='left'>
+                  <Typography sx={{ fontWeight: '600',color:"gray" }}>
+                    {row.market_cap}
+                  </Typography>{' '}
+                </TableCell>
                 <TableCell align='left' className='circulating_supply'>
                   <Typography
-                    style={{ fontWeight: 700, marginRight: '10px' }}
+                    style={{ fontWeight: 600, marginRight: '10px' }}
                     className='coin-circulating_supply'
                   >
                     {row.circulating_supply}
                   </Typography>
 
                   <Typography
-                    style={{ fontWeight: 700 }}
+                    style={{ fontWeight: 600 }}
                     className='coin-symbol'
                   >
                     {row.symbol}
