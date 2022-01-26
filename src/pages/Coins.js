@@ -267,7 +267,7 @@ Market Cap = Current Price x Circulating Supply."
                         fontWeight: '600'
                       }}
                     >
-                      <ArrowDropUp style={{ fill: 'white' }} />{' '}
+                      <ArrowDropUp style={{ fill: 'white' }} />
                       {row.price_change_24h?.toFixed(2)}%
                     </Typography>
                   )}

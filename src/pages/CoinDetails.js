@@ -24,7 +24,8 @@ import {
   BorderLinearProgress,
   Tooltip,
   TableRow,
-  IconButton
+  IconButton,
+  Stack
 } from '@mui/material'
 import axios from 'axios'
 
@@ -34,50 +35,84 @@ import {
   SentimentSatisfiedRounded,
   SentimentNeutralRounded,
   SentimentDissatisfiedRounded,
-  Star
+  Star,
+  Info,
+  InsertLink
 } from '@mui/icons-material'
-import InfoIcon from '@mui/icons-material/Info'
-import LinkIcon from '@mui/icons-material/Link'
-import { SingleCoin, HistoricalChart, CryptoNews } from '../api/coinGecko'
-import { makeStyles } from '@material-ui/core/styles';
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import StarBorder from '@mui/icons-material/StarBorder'
 
-const useStyles = makeStyles({
-  boxRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  boxColumn: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  },
-  boxeElevation: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    marginTop: '2vh',
-    margin: '1vw',
-    borderRadius: '8px'
-  },
-  ordinaryText: {
-    fontWeight: 600,
-    fontSize: '1vw'
-  }
-})
+import { SingleCoin, HistoricalChart, CryptoNews } from '../api/coinGecko'
+import { makeStyles } from '@material-ui/core/styles'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../firebase'
+import StarBorder from '@mui/icons-material/StarBorder'
+import { styled } from '@mui/material/styles'
+
+const StackItem = styled(Stack)(({ theme }) => ({
+  ...theme.typography.body2,
+  justifyContent: 'space-between',
+  flexDirection: 'row',
+  alignItems: 'center'
+}))
+const StackColumn = styled(Stack)(({ theme }) => ({
+  ...theme.typography.body2,
+  justifyContent: 'space-between',
+  flexDirection: 'column',
+  alignItems: 'center',
+  backgroundColor: 'white',
+  marginTop: '2vh',
+  margin: '1vw',
+  borderRadius: '8px'
+}))
+
+const TypoChangeRed = styled(Typography)(({ theme }) => ({
+  ...theme.typography.body2,
+  color: 'white',
+  backgroundColor: '#F40D30',
+  borderRadius: '8px',
+  padding: '5px 10px 5px 10px',
+  whiteSpace: 'nowrap',
+  fontWeight: '600'
+}))
+
+const TypoChangeGreen = styled(Typography)(({ theme }) => ({
+  ...theme.typography.body2,
+  color: 'white',
+  backgroundColor: '#16C784',
+  borderRadius: '8px',
+  padding: '5px 10px 5px 10px',
+  whiteSpace: 'nowrap',
+  fontWeight: '600'
+}))
+
+const InfoIconGray = styled(Info)(({ theme }) => ({
+  ...theme.typography.body2,
+  fill: 'gray'
+}))
+const TypographyNormal = styled(Typography)(({ theme }) => ({
+  ...theme.typography.body2,
+ fontWeight: '900', fontSize: '0.8vw', textTransform:'uppercase',marginBottom:"10px",
+ alignItems: 'center'
+}))
+const DataBox = styled(Grid)(({ theme }) => ({
+  ...theme.typography.body2,
+  height:" 21vh",
+  borderRadius: "8px",
+  margin: "1vw",
+  width: "19vw",
+  // box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  backgroundColor: "white",
+  padding:"1rem",
+  m:"1rem"
+}))
+
+
 
 function CoinDetails () {
-  const classes = useStyles()
+
   const { coinId } = useParams()
-  const { coins, watchlist, setWatchlist, user, setAlert,  } = useContext(StateContext)
+  const { coins, watchlist, setWatchlist, user, setAlert } = useContext(
+    StateContext
+  )
   const [isLoading, setIsLoading] = useState(false)
   const [marketChart, setMarketChart] = useState({})
   const [dayAgo, setDaysAgo] = useState('24h')
@@ -85,8 +120,8 @@ function CoinDetails () {
   const [cryptoNews, setCryptNews] = useState({})
   // const [cryptoSymbol, setCryptoSymbol] = useState()
 
-  const thisCoin = coins.filter(coin => coin.coinId === coinId);
-  console.log("cryptData" ,cryptData)
+  const thisCoin = coins.filter(coin => coin.coinId === coinId)
+  console.log('cryptData', cryptData)
 
   let dates = [...Array(dayAgo)].map((_, i) => {
     const d = new Date()
@@ -161,53 +196,52 @@ function CoinDetails () {
     ]
   }
 
+  const addToWatchlist = async cryptData => {
+    const coinRef = doc(db, 'watchlist', user.uid)
 
-   const addToWatchlist = async (cryptData) => {
-    const coinRef = doc(db, "watchlist", user.uid);
-    
     try {
       await setDoc(
         coinRef,
         { coins: watchlist ? [...watchlist, cryptData?.id] : [cryptData?.id] },
         { merge: true }
-      );
+      )
 
       setAlert({
         open: true,
         message: `${cryptData.name} Added to the Watchlist !`,
-        type: "success",
-      });
+        type: 'success'
+      })
     } catch (error) {
       setAlert({
         open: true,
         message: error.message,
-        type: "error",
-      });
+        type: 'error'
+      })
     }
-  };
+  }
 
-  const removeFromWatchlist = async (cryptData) => {
-    const coinRef = doc(db, "watchlist", user.uid);
+  const removeFromWatchlist = async cryptData => {
+    const coinRef = doc(db, 'watchlist', user.uid)
     try {
       await setDoc(
         coinRef,
-        { coins: watchlist.filter((wish) => wish !== cryptData?.id) },
+        { coins: watchlist.filter(wish => wish !== cryptData?.id) },
         { merge: true }
-      );
+      )
 
       setAlert({
         open: true,
         message: `${cryptData.name} Removed from the Watchlist !`,
-        type: "success",
-      });
+        type: 'success'
+      })
     } catch (error) {
       setAlert({
         open: true,
         message: error.message,
-        type: "error",
-      });
+        type: 'error'
+      })
     }
-  };
+  }
 
   return (
     <Box>
@@ -221,36 +255,34 @@ function CoinDetails () {
           mr: '3vw'
         }}
       >
-        <Box className={classes.boxRow}>
-          <Grid className='box-data' elevation={1} padding={2} sx={{}}>
-            <Box
-              display='flex'
-              flexDirection='column'
+        <StackItem>
+          <DataBox elevation={1} >
+            <Stack direction='column'
               alignItems='center'
               sx={{ color: 'gray', justifyContent: 'space-between' }}
             >
-              <Box className={classes.boxRow}>
-                <Typography className={classes.ordinaryText}>
+              <StackItem >
+                <TypographyNormal>
                   {cryptData.name}
-                </Typography>
-                <Typography className={classes.ordinaryText}>Price</Typography>
-                <Typography className={classes.ordinaryText}>
+                </TypographyNormal>
+                <TypographyNormal mx={2}>Price</TypographyNormal>
+                <TypographyNormal>
                   ({cryptData.symbol})
-                </Typography>
-              </Box>
+                </TypographyNormal>
+              </StackItem>
 
-              <Box className={classes.boxRow}>
+              <StackItem mb={1}>
                 {colorTrustScore === 'green' ? (
                   <SentimentSatisfiedRounded style={{ fill: 'green' }} />
                 ) : colorTrustScore === 'yellow' ? (
                   <SentimentNeutralRounded style={{ fill: 'yellow' }} />
                 ) : (
                   <SentimentDissatisfiedRounded style={{ fill: 'red' }} />
-                )}{' '}
+                )}
                 <Typography>Trust score</Typography>
-              </Box>
-            </Box>
-            <Box className={classes.boxRow}>
+              </StackItem>
+            </Stack>
+            <StackItem mb={1}>
               <Typography
                 sx={{ fontSize: '1.5vw', fontWeight: '700', mr: '0.5vw' }}
               >
@@ -264,69 +296,53 @@ function CoinDetails () {
               </Typography>
               <Typography>
                 {cryptData.market_data?.price_change_24h < 0 ? (
-                  <Typography
-                    style={{
-                      color: 'white',
-                      backgroundColor: 'red',
-                      borderRadius: '8px',
-                      padding: '3px',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
+                  <TypoChangeRed>
                     <ArrowDropDown sx={{ fill: 'white' }} />
                     {cryptData.market_data?.price_change_24h?.toFixed(2)}%
-                  </Typography>
+                  </TypoChangeRed>
                 ) : (
-                  <Typography
-                    style={{
-                      color: 'white',
-                      backgroundColor: 'green',
-                      borderRadius: '8px',
-                      padding: '3px',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
+                  <TypoChangeGreen>
                     <ArrowDropUp style={{ fill: 'white' }} />
                     {cryptData.market_data?.price_change_24h?.toFixed(2)}%
-                  </Typography>
+                  </TypoChangeGreen>
                 )}
               </Typography>
-            </Box>
-            <Box className={classes.boxRow}>
+            </StackItem>
+            <StackItem>
               <Typography sx={{ color: 'red', fontWeight: '700' }}>
-                Low:{' '}
+                Low:
                 {cryptData.market_data?.low_24h?.usd.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD'
                 })}
               </Typography>
               <Typography sx={{ color: 'green', fontWeight: '700' }}>
-                High:{' '}
+                High:
                 {cryptData.market_data?.high_24h?.usd.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD'
                 })}
               </Typography>
-            </Box>
-          </Grid>
+            </StackItem>
+          </DataBox>
 
-          <Grid elevation={1} className='box-data' padding={2}>
-            <Typography align='center' className={classes.ordinaryText}>
+          <DataBox elevation={1} >
+            <TypographyNormal align='center'>
               Converted value
-            </Typography>
+            </TypographyNormal>
             <Box
               display='flex'
               flexDirection='column'
               align='center'
               sx={{ justifyContent: 'space-between' }}
             >
-              <Grid className={classes.boxRow}></Grid>
+              <StackItem></StackItem>
 
-              <Grid className={classes.boxRow}>
-                <Typography className={classes.ordinaryText}>
-                  {' '}
+              <StackItem>
+                <TypographyNormal>
+                  
                   {cryptData?.tickers?.[0]?.converted_last?.btc}
-                </Typography>
+                </TypographyNormal>
                 <Divider sx={{ width: '40%', display: 'inline' }}></Divider>
                 <Typography
                   sx={{
@@ -337,12 +353,12 @@ function CoinDetails () {
                 >
                   BTC
                 </Typography>
-              </Grid>
-              <Grid className={classes.boxRow}>
-                <Typography className={classes.ordinaryText}>
-                  {' '}
+              </StackItem>
+              <StackItem>
+                <TypographyNormal>
+                  
                   {cryptData?.tickers?.[0]?.converted_last?.eth}
-                </Typography>
+                </TypographyNormal>
                 <Divider sx={{ width: '40%', display: 'inline' }}></Divider>
                 <Typography
                   sx={{
@@ -353,12 +369,12 @@ function CoinDetails () {
                 >
                   ETH
                 </Typography>
-              </Grid>
-              <Grid className={classes.boxRow}>
-                <Typography className={classes.ordinaryText}>
-                  {' '}
+              </StackItem>
+              <StackItem>
+                <TypographyNormal>
+                  
                   {cryptData?.tickers?.[0]?.converted_last?.usd}
-                </Typography>
+                </TypographyNormal>
                 <Divider sx={{ width: '40%', display: 'inline' }}></Divider>
                 <Typography
                   sx={{
@@ -369,35 +385,21 @@ function CoinDetails () {
                 >
                   USD
                 </Typography>
-              </Grid>
-
-              <Grid className={classes.boxRow}>
-                {' '}
-                {/* <Typography sx={{ fontWeight: '700' }}>
-                  {' '}
-                  {cryptData.market_data?.total_supply}
-                </Typography> */}
-              </Grid>
+              </StackItem>
             </Box>
-          </Grid>
-          <Grid elevation={1} className='box-data' padding={2}>
-            <Box className={classes.boxRow}>
+          </DataBox>
+          <DataBox elevation={1} >
+            <StackItem>
               <Typography
                 sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
               >
-                Market Cap:{' '}
+                Market Cap:
                 <Tooltip
                   title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
 
 Market Cap = Current Price x Circulating Supply."
                 >
-                  <InfoIcon
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </Typography>
               <Typography
@@ -408,18 +410,12 @@ Market Cap = Current Price x Circulating Supply."
                   title='The market cap if the max supply was in circulation.
 Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDMC = price x total supply. if max supply and total supply are infinite or not available, fully-diluted market cap shows.'
                 >
-                  <InfoIcon
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </Typography>
-            </Box>
-            <Box className={classes.boxRow}>
-              <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
+            </StackItem>
+            <StackItem>
+              <TypographyNormal>
                 {cryptData.market_data?.market_cap?.usd.toLocaleString(
                   'en-US',
                   {
@@ -427,8 +423,8 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                     currency: 'USD'
                   }
                 )}
-              </Typography>
-              <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
+              </TypographyNormal>
+              <TypographyNormal>
                 {cryptData.market_data?.fully_diluted_valuation?.usd?.toLocaleString(
                   'en-US',
                   {
@@ -436,21 +432,15 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                     currency: 'USD'
                   }
                 )}
-              </Typography>
-            </Box>
-            <Box className={classes.boxRow}>
+              </TypographyNormal>
+            </StackItem>
+            <StackItem>
               <Typography
                 sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
               >
-                Volume:{' '}
+                Volume:
                 <Tooltip title='A measure of how much of a cryptocurrency was traded in the last 24 hours.'>
-                  <InfoIcon
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </Typography>
               <Typography
@@ -458,19 +448,13 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
               >
                 Circulating Supply:
                 <Tooltip title='The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock marke'>
-                  <InfoIcon
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </Typography>
-            </Box>
-            <Box className={classes.boxRow}>
-              <Box className={classes.boxRow}>
-                <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
+            </StackItem>
+            <StackItem>
+              <StackItem>
+                <TypographyNormal>
                   {cryptData.market_data?.total_volume?.usd.toLocaleString(
                     'en-US',
                     {
@@ -478,7 +462,7 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                       currency: 'USD'
                     }
                   )}
-                </Typography>
+                </TypographyNormal>
                 <Typography
                   sx={{
                     ml: '0.5vw',
@@ -489,9 +473,9 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                 >
                   24
                 </Typography>
-              </Box>
+              </StackItem>
 
-              <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
+              <TypographyNormal>
                 {cryptData.market_data?.circulating_supply?.toLocaleString(
                   'en-US',
                   {
@@ -499,24 +483,18 @@ Fully-diluted market cap (FDMC) = price x max supply. If max supply is null, FDM
                     currency: 'USD'
                   }
                 )}
-              </Typography>
-            </Box>
-            <Box className={classes.boxRow}>
+              </TypographyNormal>
+            </StackItem>
+            <StackItem>
               <Typography
                 sx={{ fontWeight: '700', fontSize: '0.7vw', color: '#B8B8B8' }}
               >
-                Max Supply :{' '}
+                Max Supply :
                 <Tooltip
                   title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
 Market Cap = Current Price x Circulating Supply."
                 >
-                  <InfoIcon
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </Typography>
               <Typography
@@ -527,31 +505,25 @@ Market Cap = Current Price x Circulating Supply."
                   title='The amount of coins that have been already created, minus any coins that have been burned. It is analogous to the outstanding shares in the stock market.
 If this data has not been submitted by the project or verified by the CMC team, total supply shows - -.'
                 >
-                  <InfoIcon
-                    color='disabled'
-                    sx={{
-                      fontSize: 'large',
-                      verticalAlign: 'middle'
-                    }}
-                  />
+                  <InfoIconGray />
                 </Tooltip>
               </Typography>
-            </Box>
-            <Box className={classes.boxRow}>
-              <Box className={classes.boxRow}>
-                <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
+            </StackItem>
+            <StackItem>
+              <StackItem>
+                <TypographyNormal>
                   {cryptData.market_data?.max_supply}
-                </Typography>
-              </Box>
+                </TypographyNormal>
+              </StackItem>
 
-              <Typography sx={{ fontWeight: '900', fontSize: '0.8vw' }}>
+              <TypographyNormal>
                 {cryptData.market_data?.total_supply}
-              </Typography>
-            </Box>
-          </Grid>
-        </Box>
+              </TypographyNormal>
+            </StackItem>
+          </DataBox>
+        </StackItem>
 
-        <Box className={classes.boxRow}>
+        <StackItem>
           <Paper
             sx={{ backgroundColor: 'white' }}
             elevation={1}
@@ -571,11 +543,11 @@ If this data has not been submitted by the project or verified by the CMC team, 
             <Button onClick={e => setDaysAgo(90)}>3M</Button>
             <Line data={data} className='chart-data' />
           </Paper>
-        </Box>
+        </StackItem>
       </Box>
 
-      <Box className={classes.boxeElevation}>
-        <Box className={classes.boxRow}>
+      <StackColumn>
+        <StackItem>
           <img
             sx={{ width: '1vw', margin: 'auto' }}
             src={cryptData?.image?.small}
@@ -603,34 +575,26 @@ If this data has not been submitted by the project or verified by the CMC team, 
             {cryptData.symbol}
           </Typography>
 
-           {
-                   user && (watchlist.indexOf(cryptData.id) === -1 ? (
-                    <Tooltip title='Add to Watchlist '>
-                      <IconButton>
-                        <StarBorder
-                          onClick={() => addToWatchlist(cryptData)}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip title='Remove from watchlist'>
-                      <IconButton>
-                        <Star
-                          onClick={() =>
-                           removeFromWatchlist(cryptData)}
-                             
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  ))
-                  
-                  }
-        </Box>
-        <Box className={classes.boxRow}>
+          {user &&
+            (watchlist.indexOf(cryptData.id) === -1 ? (
+              <Tooltip title='Add to Watchlist '>
+                <IconButton>
+                  <StarBorder onClick={() => addToWatchlist(cryptData)} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title='Remove from watchlist'>
+                <IconButton>
+                  <Star onClick={() => removeFromWatchlist(cryptData)} />
+                </IconButton>
+              </Tooltip>
+            ))}
+        </StackItem>
+        <StackItem>
           <Typography
             align='center'
             sx={{
-              fontSize: '1.5vw',
+              fontSize: '1.2vw',
               fontWeight: '700',
               backgroundColor: '#d3d3d3',
               borderRadius: '8px',
@@ -640,72 +604,81 @@ If this data has not been submitted by the project or verified by the CMC team, 
           >
             Rank:{cryptData.market_cap_rank}
           </Typography>
-        </Box>
+        </StackItem>
 
         <CardContent>
           <Typography variant='body2' color='text.secondary'>
             `
             {cryptData?.description?.en
-              .substring(0, 400)
-              .replace(/<a\b[^>]*>/i, '')
-              .replace(/<\/a>/i, '')}
+              .substring(0, 300).
+             replace( /(<([^>]+)>)/ig, '')}
             `
           </Typography>
-          <Box className={classes.boxRow}>
+          <StackItem >
             <a
               href={cryptData?.links?.homepage[0]}
               target='_blank'
               rel='noreferrer noopener'
             >
-              Read more on official {coinId} website - link <LinkIcon />
+              Read more on official {coinId} website - link <InsertLink />
             </a>
             <a
               href={cryptData.links?.official_forum_url}
               target='_blank'
               rel='noreferrer noopener'
             >
-              Official {coinId} forum <LinkIcon />
+              Official {coinId} forum <InsertLink />
             </a>
-          </Box>
+          </StackItem>
         </CardContent>
-        <a
+        <Box sx={{ 
+ 
+  borderRadius: '8px',
+  padding: '5px 10px 5px 10px',
+  whiteSpace: 'nowrap',
+  fontWeight: '600', backgroundColor: '#3861FB', mb:"0.5vh"}}>
+   <a
           href={cryptData.tickers?.[0]?.trade_url}
           align='center'
           target='_blank'
-          rel='noreferrer noopener'
+          rel='noreferrer noopener' 
+         className="link-trade"
         >
           TRADE
-        </a>
-      </Box>
+        </a></Box>
+       
+      </StackColumn>
 
-      <Box className={classes.boxeElevation}>
+      <StackColumn>
         <Grid>
-          {/* <img src={cryptoNews.articles?.[0]?.urlToImage} alt="vaa"/> */}
-          {cryptoNews.articles?.slice(0, 3).map(article => (
-            <Card sx={{ maxWidth: 345 }}>
-              <CardHeader
-                title={article?.title}
-                style={{ fontSize: '0.5em' }}
-              />
-              <CardMedia
-                component='img'
-                height='60'
-                width='60'
-                image={article?.urlToImage}
-                alt='x'
-              />
-              <CardContent>
-                <Typography variant='body2' color='text.secondary'>
-                  {article?.description}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <LinkIcon />
-              </CardActions>
-            </Card>
+         
+          {cryptoNews.articles?.slice(0,3).map(article => (
+            <Grid mb={1}>
+              <TypographyNormal
+            
+              >{article?.title}</TypographyNormal>
+              <StackItem>
+                
+                <CardMedia
+                  component='img'
+                  height='40'
+                  width='40'
+                  image={article?.urlToImage}
+                  alt='x'
+                 
+                />
+             
+                  <Typography ml={2}>
+                    {article?.description.substring(0, 200).
+              replace( /(<([^>]+)>)/ig, '')}
+                  </Typography>
+              
+              </StackItem>
+
+            </Grid>
           ))}
         </Grid>
-      </Box>
+      </StackColumn>
     </Box>
   )
 }

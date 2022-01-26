@@ -29,14 +29,13 @@ import {
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
-import { experimentalStyled as styled } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 
 export default function Watchlist () {
   const { coins, watchlist, setWatchlist, user, setAlert } = useContext(
     StateContext
   )
 
-  console.log(coins)
   const results = coins.filter(item => watchlist?.includes(item.id))
 
   const addToWatchlist = async row => {
@@ -96,7 +95,6 @@ export default function Watchlist () {
   }))
   const TypoChangeGreen = styled(Typography)(({ theme }) => ({
     ...theme.typography.body2,
-
     color: '#16C784',
     borderRadius: '8px',
     padding: '5px 10px 5px 10px',
@@ -105,10 +103,13 @@ export default function Watchlist () {
   }))
   const TableNormal = styled(Table)(({ theme }) => ({
     ...theme.typography.body2,
-
     fontWeight: 700,
     marginRight: '10px',
     textTransform: 'uppercase'
+  }))
+  const InfoIconGray = styled(Info)(({ theme }) => ({
+    ...theme.typography.body2,
+    fill: 'gray'
   }))
 
   return (
@@ -134,13 +135,7 @@ export default function Watchlist () {
             <TableCell align='left' sx={{ whiteSpace: 'nowrap' }}>
               Total Volume
               <Tooltip title='A measure of how much of a cryptocurrency was traded in the last 24 hours.'>
-                <Info
-                  sx={{
-                    fontSize: 'large',
-
-                    verticalAlign: 'middle'
-                  }}
-                />
+                <InfoIconGray />
               </Tooltip>
             </TableCell>
             <TableCell sx={{ whiteSpace: 'nowrap' }}>
@@ -149,25 +144,13 @@ export default function Watchlist () {
                 title="The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
 Market Cap = Current Price x Circulating Supply."
               >
-                <Info
-                  sx={{
-                    fontSize: 'large',
-
-                    verticalAlign: 'middle'
-                  }}
-                />
+                <InfoIconGray />
               </Tooltip>
             </TableCell>
             <TableCell>
               Circulating Supply
               <Tooltip title='The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.'>
-                <Info
-                  color='disabled'
-                  sx={{
-                    fontSize: 'large',
-                    verticalAlign: 'middle'
-                  }}
-                />
+                <InfoIconGray />
               </Tooltip>
             </TableCell>
           </TableRow>
@@ -235,7 +218,7 @@ Market Cap = Current Price x Circulating Supply."
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />{' '}
+                    <ArrowDropUp style={{ fill: 'white' }} />
                     {row.price_change_percentage_1h_in_currency?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -248,7 +231,7 @@ Market Cap = Current Price x Circulating Supply."
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />{' '}
+                    <ArrowDropUp style={{ fill: 'white' }} />
                     {row.price_change_percentage_24h_in_currency?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -261,7 +244,7 @@ Market Cap = Current Price x Circulating Supply."
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />{' '}
+                    <ArrowDropUp style={{ fill: 'white' }} />
                     {row.price_change_percentage_7d_in_currency?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -274,7 +257,7 @@ Market Cap = Current Price x Circulating Supply."
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />{' '}
+                    <ArrowDropUp style={{ fill: 'white' }} />
                     {row.high_24h?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
@@ -287,18 +270,18 @@ Market Cap = Current Price x Circulating Supply."
                   </TypoChangeRed>
                 ) : (
                   <TypoChangeGreen>
-                    <ArrowDropUp style={{ fill: 'white' }} />{' '}
+                    <ArrowDropUp style={{ fill: 'white' }} />
                     {row.low_24h?.toFixed(2)}%
                   </TypoChangeGreen>
                 )}
               </TableCell>
 
               <TableCell>
-                {' '}
+                
                 <TableNormal>{row.market_cap}</TableNormal>
               </TableCell>
               <TableCell>
-                {' '}
+                
                 <TableNormal>{row.total_volume}</TableNormal>
               </TableCell>
               <TableCell className='circulating_supply'>
