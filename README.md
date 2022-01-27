@@ -21,6 +21,7 @@ Tasks:
 9. ✔️ Style navbar 
 10. loading
 11. memory improving
+12. dark theme
 
 
 Appearance at the present stage. It's not over yet.
