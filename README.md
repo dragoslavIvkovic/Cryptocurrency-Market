@@ -1,20 +1,37 @@
+Crypto Data & News
+
+Crypto app with last data and latest news about crypto coins
+
+
+State management - Context api
+Firebase a Backend-as-a-Service
+API = CoingGeckoApi & NewsApi
+
+
+
 Tasks:  
 1. ✔️ add data grid 
 2. ✔️ add charts in detail view  
-3.     add trade button 
+3. ✔️ add trade button 
 4. ✔️ add follow button 
 5. ✔️ add user login/signup & save follow list
 6. ✔️ back btn from details view
 7. ✔️ in detail view add dates-last 7 days
-8. add tabs to chart
-9. ✔️ Crypto news
-10. filter coin high to low
-11. Loading 
-12. Style navbar 
+8. ✔️ Crypto news
+9. ✔️ Style navbar 
+10. loading
+11. memory improving
+12. dark theme
 
 
 Appearance at the present stage. It's not over yet.
 
 
  
-![Untitled Project](https://user-images.githubusercontent.com/54446010/151195403-b506d45c-750a-48db-a76c-10bec3880518.gif)
+
+
+
+
+
+https://user-images.githubusercontent.com/54446010/151251551-b2d1f152-e67f-4250-8a72-6f3487f9fa58.mp4
+
