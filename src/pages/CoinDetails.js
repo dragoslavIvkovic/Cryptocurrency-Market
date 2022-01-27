@@ -612,13 +612,13 @@ If this data has not been submitted by the project or verified by the CMC team, 
         </StackItem>
 
         <CardContent>
-          {/* <Typography variant='body2' color='text.secondary'>
+          <Typography variant='body2' color='text.secondary'>
             `
             {cryptData?.description?.en
               .substring(0, 300).
              replace( /(<([^>]+)>)/ig, '')}
             `
-          </Typography> */}
+          </Typography>
           <StackItem >
             <a
               href={cryptData?.links?.homepage[0]}
@@ -673,10 +673,10 @@ If this data has not been submitted by the project or verified by the CMC team, 
                  
                 />
              
-                  {/* <Typography ml={2}>
+                  <Typography ml={2}>
                     {article?.description.substring(0, 200).
               replace( /(<([^>]+)>)/ig, '')}
-                  </Typography> */}
+                  </Typography>
               
               </StackItem>
 
