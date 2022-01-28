@@ -110,7 +110,7 @@ export default function AuthModal () {
               position='static'
               style={{
                 backgroundColor: 'transparent',
-                color: 'white'
+                color: '#3861FB'
               }}
             >
               <Tabs

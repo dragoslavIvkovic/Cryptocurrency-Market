@@ -1,16 +1,5 @@
-import {
-  AppBar,
-  Container,
-  MenuItem,
-  Select,
-  Toolbar,
-  Typography
-} from '@material-ui/core'
-import {
-  createTheme,
-  makeStyles,
-  ThemeProvider
-} from '@material-ui/core/styles'
+import { AppBar, Toolbar, Tooltip, IconButton } from "@material-ui/core";
+import { Brightness7, Brightness4 } from "@material-ui/icons";
 import { Avatar, Button } from '@material-ui/core'
 import { Box, Grid } from '@mui/material'
 import React, { useContext, useState } from 'react'
@@ -20,6 +9,7 @@ import { signOut } from 'firebase/auth'
 import { StateContext } from '../../context/GlobalState'
 import AuthModal from '../Auth/AuthModal'
 import { auth, db } from '../../firebase'
+import { useThemeMode } from "../../context/themeContext";
 
 
 
@@ -28,6 +18,7 @@ import { auth, db } from '../../firebase'
 export default function Navbar () {
  
   const { user, setAlert } = useContext(StateContext)
+   const { darkMode, handleDarkMode } = useThemeMode();
  
   const logOut = () => {
     signOut(auth)
@@ -67,6 +58,15 @@ export default function Navbar () {
         <Link className='navbar-link' style={{ float: 'right' }} to='watchlist'>
         <Button>Watchlist</Button>  
         </Link>
+         <Tooltip title="Toggle dark mode">
+          <IconButton color="inherit" onClick={() => handleDarkMode()}>
+            {darkMode ? (
+              <Brightness7 fontSize="small" />
+            ) : (
+              <Brightness4 fontSize="small" />
+            )}
+          </IconButton>
+        </Tooltip>
      
     </nav>
   )

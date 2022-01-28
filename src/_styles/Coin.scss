@@ -3,27 +3,27 @@
   font-size:6vw;
 }
 
-.coin_symbol {
- color: blue;
-  text-transform: uppercase;
-}
+// .coin_symbol {
+//  color: blue;
+//   text-transform: uppercase;
+// }
 
-.btn-buy__coin {
-  white-space: nowrap;
-  background: #0066b2;
-  color: #3861fb;
-}
+// .btn-buy__coin {
+//   white-space: nowrap;
+//   background: #0066b2;
+//   color: #3861fb;
+// }
 
 .link__details {
   text-decoration: none;
   white-space: nowrap;
 }
-.link__details:hover {
-  text-decoration: none;
-  background: rgba(8, 171, 247, 0.1);
-  color: white;
-  border-radius: 15px;
-}
+// .link__details:hover {
+//   text-decoration: none;
+//   background: rgba(8, 171, 247, 0.1);
+//   color: white;
+//   border-radius: 15px;
+// }
 
 .coin_price {
   font-weight: 700;
@@ -44,7 +44,7 @@
 
 .coin-search .MuiInputBase-root {
   background-color: white;
-  //  border-radius: 15px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   border-radius: 15px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .table-row:hover {
