@@ -38,11 +38,3 @@ Dark theme.
  
 
 
-
-
-
-
-https://user-images.githubusercontent.com/54446010/151587466-bad02a89-6084-4e63-9c7d-eafe692a33f7.mp4
-
-251551-b2d1f152-e67f-4250-8a72-6f3487f9fa58.mp4
-
