@@ -16,10 +16,13 @@ export const light = {
 
 export const dark = {
   palette: {
+  
     background: {
       default: '#2D325A',
       paper: '#202342'
     },
+
+    
     text: {
       primary: '#3861FB',
       secondary: '#16C784'

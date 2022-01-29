@@ -139,7 +139,7 @@ function Coins () {
       <TableContainer elevation={3} component={Paper}>
        
        {loading ? (
-            <LinearProgress style={{ backgroundColor: "#f40d30" }} />
+            <LinearProgress style={{ backgroundColor: "gold" }} />
           ) : (
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
