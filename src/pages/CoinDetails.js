@@ -363,12 +363,12 @@ function CoinDetails () {
             >
               <StackItem></StackItem>
 
-              <StackItem>
+              <StackItem verticalAlign="middle">
                 <TypographyNormal>
                   
                   {cryptData?.tickers?.[0]?.converted_last?.btc}
                 </TypographyNormal>
-                <Divider sx={{ width: '40%', display: 'inline' }}></Divider>
+                <Divider sx={{ width: '20%', display: 'inline',backgroundColor: 'red', }}></Divider>
                 <Typography
                   sx={{
                     fontWeight: '900',
@@ -384,7 +384,7 @@ function CoinDetails () {
                   
                   {cryptData?.tickers?.[0]?.converted_last?.eth}
                 </TypographyNormal>
-                <Divider sx={{ width: '40%', display: 'inline' }}></Divider>
+                <Divider sx={{ width: '20%', display: 'inline',backgroundColor: 'red' }}></Divider>
                 <Typography
                   sx={{
                     fontWeight: '900',
@@ -400,7 +400,7 @@ function CoinDetails () {
                   
                   {cryptData?.tickers?.[0]?.converted_last?.usd}
                 </TypographyNormal>
-                <Divider sx={{ width: '40%', display: 'inline' }}></Divider>
+                <Divider sx={{ width: '20%', display: 'inline',backgroundColor: 'red', alignItem: 'center'}}></Divider>
                 <Typography
                   sx={{
                     fontWeight: '900',

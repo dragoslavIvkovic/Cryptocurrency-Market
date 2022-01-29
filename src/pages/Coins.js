@@ -39,7 +39,7 @@ import { styled } from '@mui/material/styles'
 
 const InfoIconGray = styled(Info)(({ theme }) => ({
   ...theme.typography.body2,
-  fill: '#3861FB'
+  // fill: '#3861FB'
 }))
 
 function Coins () {
@@ -110,7 +110,7 @@ function Coins () {
     <Container sx={{ width: '80vw', marginTop: '5rem' }} className=''>
       <Grid align='center' mb={2}>
         <FormControl>
-          <Typography className='coin-text'>Search a currency</Typography>
+          <Typography sx={{color:"#3861FB"}}>Search a currency</Typography>
 
           <Paper
             elevation={3}
@@ -123,14 +123,14 @@ function Coins () {
             }}
           >
             <InputBase
-              sx={{ ml: 1, flex: 1 }}
+              sx={{ ml: 1, flex: 1,color:"#3861FB" }}
               placeholder='Search'
               inputProps={{ 'aria-label': 'search' }}
               onChange={handleChange}
-              className='coin-search'
+             
             />
             <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
-              <Search />
+              <Search sx={{  fill: '#3861FB'}} />
             </IconButton>
           </Paper>
         </FormControl>
