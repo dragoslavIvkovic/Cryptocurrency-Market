@@ -22,6 +22,7 @@ Tasks:
 10. ✔️loading
 11. Mobile responsive
 12. ✔️ dark theme
+13. pagination
 
 
 Appearance at the present stage. It's not over yet.
