@@ -1,26 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,900&display=swap');
 
 $base-bgwhite: #e7e9ee;
-$base-white: #FFFFFF;
-$base-dwhite:#FDFDFE;
-$base-blue:#3861FB;
-$base-green:#16C784;
+$base-white: #ffffff;
+$base-dwhite: #fdfdfe;
+$base-blue: #3861fb;
+$base-green: #16c784;
 
-$base-red:#F40D30;
-$base-gray:#D3D3D3;
-
+$base-red: #f40d30;
+$base-gray: #d3d3d3;
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
- 
+
   overflow-x: hidden;
 }
 
 body {
-  background-color:$base-bgwhite;
+  background-color: $base-bgwhite;
   // font-family: "Roboto", sans-serif;
-
 }

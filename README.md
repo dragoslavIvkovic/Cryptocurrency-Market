@@ -19,8 +19,8 @@ Tasks:
 7. ✔️ in detail view add dates-last 7 days
 8. ✔️ Crypto news
 9. ✔️ Style navbar 
-10. loading
-11. memory improving
+10. ✔️ loading
+
 
 
 

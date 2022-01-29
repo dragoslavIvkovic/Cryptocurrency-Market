@@ -21,7 +21,7 @@ import {
   FormControl,
   Button,
   Tooltip,
-  InputAdornment,
+  LinearProgress ,
   InputBase,
   IconButton
 } from '@mui/material'
@@ -44,7 +44,7 @@ const InfoIconGray = styled(Info)(({ theme }) => ({
 
 function Coins () {
   const [search, setSearch] = useState('')
-  const { coins, watchlist, setWatchlist, user, setAlert } = useContext(
+  const { coins, watchlist, setWatchlist, user, setAlert,loading, setLoading } = useContext(
     StateContext
   )
 
@@ -107,7 +107,6 @@ function Coins () {
   }
 
   return (
-    
     <Container sx={{ width: '80vw', marginTop: '5rem' }} className=''>
       <Grid align='center' mb={2}>
         <FormControl>
@@ -138,12 +137,16 @@ function Coins () {
       </Grid>
 
       <TableContainer elevation={3} component={Paper}>
-        <Table stickyHeader aria-label='sticky table' >
-          <TableHead >
+       
+       {loading ? (
+            <LinearProgress style={{ backgroundColor: "#f40d30" }} />
+          ) : (
+        <Table stickyHeader aria-label='sticky table'>
+          <TableHead>
             <TableRow>
               <TableCell>
                 <Tooltip title='Login to add watchlist'>
-                  <StarBorder sx={{fill:"#3861FB", ml: '10px' }} />
+                  <StarBorder sx={{ fill: '#3861FB', ml: '10px' }} />
                 </Tooltip>
               </TableCell>
               <TableCell align='left'>Name</TableCell>
@@ -185,13 +188,19 @@ function Coins () {
                     (watchlist.indexOf(row.id) === -1 ? (
                       <Tooltip title='Add to Watchlist '>
                         <IconButton>
-                          <StarBorder sx={{fill:"#3861FB"}} onClick={() => addToWatchlist(row)} />
+                          <StarBorder
+                            sx={{ fill: '#3861FB' }}
+                            onClick={() => addToWatchlist(row)}
+                          />
                         </IconButton>
                       </Tooltip>
                     ) : (
                       <Tooltip title='Remove from watchlist'>
                         <IconButton>
-                          <Star onClick={() => removeFromWatchlist(row)} sx={{fill:"#3861FB"}} />
+                          <Star
+                            onClick={() => removeFromWatchlist(row)}
+                            sx={{ fill: '#3861FB' }}
+                          />
                         </IconButton>
                       </Tooltip>
                     ))}
@@ -260,14 +269,14 @@ function Coins () {
                     </Typography>
                   )}
                 </TableCell>
-              
+
                 <TableCell align='left'>
                   <Typography sx={{ fontWeight: '600' }}>
                     {row.total_volume}
                   </Typography>{' '}
                 </TableCell>
-                  <TableCell align='left'>
-                  <Typography sx={{ fontWeight: '600',color:"#F40D30" }}>
+                <TableCell align='left'>
+                  <Typography sx={{ fontWeight: '600', color: '#F40D30' }}>
                     {row.market_cap}
                   </Typography>{' '}
                 </TableCell>
@@ -289,7 +298,7 @@ function Coins () {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+        </Table>)}
       </TableContainer>
     </Container>
   )

@@ -32,7 +32,7 @@ import { Link } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
 
 export default function Watchlist () {
-  const { coins, watchlist, setWatchlist, user, setAlert } = useContext(
+  const { coins, watchlist, setWatchlist, user, setAlert,loading, setLoading } = useContext(
     StateContext
   )
 
@@ -109,7 +109,7 @@ export default function Watchlist () {
   }))
   const InfoIconGray = styled(Info)(({ theme }) => ({
     ...theme.typography.body2,
-    fill: 'gray'
+    fill: '#3861fb'
   }))
 
   return (
@@ -168,13 +168,13 @@ Market Cap = Current Price x Circulating Supply."
                   (watchlist.indexOf(row.id) === -1 ? (
                     <Tooltip title='Add to Watchlist '>
                       <IconButton>
-                        <StarBorder onClick={() => addToWatchlist(row)} />
+                        <StarBorder onClick={() => addToWatchlist(row)} sx={{fill:"#3861fb"}} />
                       </IconButton>
                     </Tooltip>
                   ) : (
                     <Tooltip title='Remove from watchlist'>
                       <IconButton>
-                        <Star onClick={() => removeFromWatchlist(row)} />
+                        <Star onClick={() => removeFromWatchlist(row)} sx={{fill:"#3861fb"}} />
                       </IconButton>
                     </Tooltip>
                   ))}

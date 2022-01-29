@@ -2,40 +2,28 @@ import { amber, grey, deepPurple } from '@mui/material/colors'
 
 export const light = {
   palette: {
- background: {
-      default: '#e7e9ee',
-      paper: '#ffffff'
-        
+    background: {
+      default: '#FFFFFF',
+      paper: '#FFFFFF'
     },
-    
+
     text: {
-      primary:'#1a1531',
-      secondary:'#F40D30'
+      primary: '#000000',
+      secondary: '#313131'
     }
   }
 }
 
-export const dark =  {
+export const dark = {
   palette: {
-    
-   
     background: {
-      default: '#312854',
-      paper: '#251D46'
+      default: '#2D325A',
+      paper: '#202342'
     },
     text: {
-      primary: '#16C784',
-      secondary: '#ffffff'
+      primary: '#3861FB',
+      secondary: '#16C784'
     },
-  //   overrides: {
-  //   //MuiTableCell
-  //   MuiTableRow: {
-  //     root: {
-  //       cursor: 'pointer',
-  //       "&:hover": {
-  //         backgroundColor: "#16C784"
-  //       }
-  //     }
-  //   }
-  // }
-  }}
+
+  }
+}

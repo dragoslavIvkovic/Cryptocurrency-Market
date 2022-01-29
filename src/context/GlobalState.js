@@ -11,6 +11,7 @@ function StateProvider ({ children }) {
   // state of coins and
   const [coins, setCoins] = useState([])
   const [user, setUser] = useState(null)
+   const [loading, setLoading] = useState(false);
   const [watchlist, setWatchlist] = useState([])
   const [alert, setAlert] = useState({
     open: false,
@@ -48,10 +49,12 @@ function StateProvider ({ children }) {
   console.log('user', user)
 
   const getCoinData = async () => {
+     setLoading(true);
     await axios
       .get(CoinList())
       .then(res => {
         setCoins(res.data)
+         setLoading(false);
       })
       .catch(error => console.log(error))
   }
@@ -62,7 +65,7 @@ function StateProvider ({ children }) {
 
   return (
     <StateContext.Provider
-      value={{ coins, watchlist, setWatchlist, alert, setAlert, user }}
+      value={{ coins, watchlist, setWatchlist, alert, setAlert, user,loading, setLoading }}
     >
       {children}
     </StateContext.Provider>
