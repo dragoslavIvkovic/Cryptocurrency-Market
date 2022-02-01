@@ -23,6 +23,9 @@ Tasks:
 11. Mobile responsive
 12. ✔️ dark theme
 13. pagination
+14. Styling improvement
+15. Hide api keys 
+16. Do not repeat 🔂 code 
 
 
 Appearance at the present stage. It's not over yet.
