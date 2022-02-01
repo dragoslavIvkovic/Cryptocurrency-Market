@@ -1,4 +1,4 @@
-Crypto Data & News
+```Crypto Data & News
 
 Crypto app with last data and latest news about crypto coins
 
@@ -38,5 +38,5 @@ https://user-images.githubusercontent.com/54446010/151662212-3c4f6d01-c594-4427-
 Dark theme.
 
  
-
+```
 
