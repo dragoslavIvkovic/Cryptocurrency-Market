@@ -26,7 +26,8 @@ Tasks:
 14. Styling improvement
 15. Hide api keys 
 16. Do not repeat 🔂 code 
-17. Write test. 
+17. debouncing
+18. Write test. 
 
 
 Appearance at the present stage. It's not over yet.
