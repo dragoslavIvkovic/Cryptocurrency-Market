@@ -35,7 +35,8 @@ import {
 } from '@mui/icons-material'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import { styled } from '@mui/material/styles'
+import { styled } from '@mui/material/styles';
+
 
 const InfoIconGray = styled(Info)(({ theme }) => ({
   ...theme.typography.body2,
@@ -55,10 +56,32 @@ function Coins () {
       coin.id.toLowerCase().includes(search.toLowerCase())
   )
 
-  const handleChange = e => {
-    setSearch(e.target.value)
+ 
+
+ 
+
+    function debounce(fn, time) {
+    let setTimeoutId;
+
+    return function () {
+      if (setTimeoutId) {
+        clearTimeout(setTimeoutId);
+      }
+      setTimeoutId = setTimeout(() => {
+        fn.apply(this, arguments);
+        setTimeoutId = null;
+      }, time);
+      console.log(setTimeoutId);
+    };
   }
 
+
+  const handleChange = debounce(function (e) {
+    
+    setSearch(e.target.value);
+  }, 500);
+
+  
   const addToWatchlist = async row => {
     const coinRef = doc(db, 'watchlist', user.uid)
 
