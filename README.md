@@ -30,7 +30,7 @@ Write test.
 Appearance at the present stage. It's not over yet.
 
 
-https://user-images.githubusercontent.com/54446010/151662212-3c4f6d01-c594-4427-9092-3b1092361389.mp4
+
 
 
 
