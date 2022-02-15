@@ -24,6 +24,7 @@ Hide api keys
 Do not repeat 🔂 code
 ✔️ debouncing
 Write test.
+conditions in Realtime Database Rules
 
 
 
