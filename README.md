@@ -24,11 +24,12 @@ Hide api keys
 Do not repeat 🔂 code
 ✔️ debouncing
 Write test.
-conditions in Realtime Database Rules```
+conditions in Realtime Database Rule
 
 
 
 Appearance at the present stage. It's not over yet.
+```
 
 
 
