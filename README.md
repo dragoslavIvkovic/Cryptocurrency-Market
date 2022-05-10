@@ -37,14 +37,6 @@ Appearance at the present stage. It's not over yet.
 
 
 
+https://user-images.githubusercontent.com/54446010/167636533-0146e7be-76f7-400f-9ed9-ecdd5691a6b0.mp4
 
-
-Dark theme.
-
-
-https://user-images.githubusercontent.com/54446010/167636193-a2c3c826-023f-4534-8a69-4f3087278a7e.mp4
-
-
- 
-```
 
