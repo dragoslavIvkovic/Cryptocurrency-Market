@@ -1,4 +1,4 @@
-Crypto Data & News
+```Crypto Data & News
 
 Crypto app with last data and latest news about crypto coins
 
@@ -24,7 +24,7 @@ Hide api keys
 Do not repeat 🔂 code
 ✔️ debouncing
 Write test.
-conditions in Realtime Database Rules
+conditions in Realtime Database Rules```
 
 
 
